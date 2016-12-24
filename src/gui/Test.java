@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class Test extends JFrame {
 
@@ -41,8 +43,13 @@ public class Test extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblCliente = new JLabel("Cliente");
+		lblCliente.setBounds(352, 11, 64, 19);
 		lblCliente.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblCliente.setBounds(41, 11, 64, 19);
 		contentPane.add(lblCliente);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(341, 11, 1, 210);
+		separator.setOrientation(SwingConstants.VERTICAL);
+		contentPane.add(separator);
 	}
 }

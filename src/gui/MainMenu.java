@@ -23,8 +23,8 @@ public class MainMenu extends MyFrame {
 	private JLabel lblIcon;
 	
 	// Constructor
-	public MainMenu(int width, int height) {
-		super(width, height);
+	public MainMenu(int width, int height, String title) {
+		super(width, height, title);
 		this.init();
 	}
 	
@@ -36,8 +36,7 @@ public class MainMenu extends MyFrame {
 	public void init() {
 		this.initMenuBar();
 		this.initLabels();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(UserMessages.MAIN_TITLE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Overwrite setDefaultCloseOperation of MyFrame
 		setVisible(true);
 	}
 	
@@ -55,7 +54,7 @@ public class MainMenu extends MyFrame {
 		mntmVerFacturas = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
 		mntmVerFacturas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SeeBillsFrame(700, 500);
+				new SeeBillsFrame(700, 500, UserMessages.MENU_ITEM_SEE_BILLS);
 			}
 		});
 		mnFacturas.add(mntmVerFacturas);
@@ -63,7 +62,7 @@ public class MainMenu extends MyFrame {
 		mntmNuevaFactura = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
 		mntmNuevaFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new NewBillFrame(700, 500);
+				new NewBillFrame(700, 500, UserMessages.MENU_ITEM_NEW_BILL);
 			}
 		});
 		mnFacturas.add(mntmNuevaFactura);

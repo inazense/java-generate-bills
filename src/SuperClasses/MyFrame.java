@@ -12,24 +12,28 @@ public class MyFrame extends JFrame {
 	protected JPanel contentPane;
 	protected int width;
 	protected int heigth;
+	protected String title;
 	
 	// Constructor
-	public MyFrame(int width, int height) {
+	public MyFrame(int width, int height, String title) {
 		this.width = width;
 		this.heigth = height;
+		this.title = title;
 		this.init();
 	}
+	
 	// Methods
 	
 	/**
 	 * Init general characteristics
 	 */
 	private void init() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, this.width, this.heigth);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(new ImageIcon("resources/icon.png").getImage());
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setTitle(this.title);
 		this.initJFrame();
 		setContentPane(contentPane);
 		
