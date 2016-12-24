@@ -15,12 +15,15 @@ import java.awt.event.ActionEvent;
 public class MainMenu extends MyFrame {
 
 	// Properties
-	private JMenuBar menuBar;
-	private JMenu mnFacturas;
-	private JMenuItem mntmVerFacturas;
-	private JMenuItem mntmNuevaFactura;
-	private JMenuItem mntmBuscar;
 	private JLabel lblIcon;
+	private JMenuBar menuBar;
+	private JMenu mnClients;
+	private JMenu mnBills;
+	private JMenuItem mntmNewBill;
+	private JMenuItem mntmNewClient;
+	private JMenuItem mntmSearchBill;
+	private JMenuItem mntmSearchClient;
+	private JMenuItem mntmSeeBills;
 	
 	// Constructor
 	public MainMenu(int width, int height, String title) {
@@ -47,28 +50,46 @@ public class MainMenu extends MyFrame {
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 900, 21);
 		contentPane.add(menuBar);
+		this.initMenuBills();
+		this.initMenuClients();
+	}
+	
+	/**
+	 * Init submenu Bills
+	 */
+	public void initMenuBills() {
+		mnBills = new JMenu(UserMessages.MENU_FACTURAS);
+		menuBar.add(mnBills);
 		
-		mnFacturas = new JMenu(UserMessages.MENU_FACTURAS);
-		menuBar.add(mnFacturas);
-		
-		mntmVerFacturas = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
-		mntmVerFacturas.addActionListener(new ActionListener() {
+		mntmSeeBills = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
+		mntmSeeBills.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new SeeBillsFrame(700, 500, UserMessages.MENU_ITEM_SEE_BILLS);
 			}
 		});
-		mnFacturas.add(mntmVerFacturas);
+		mnBills.add(mntmSeeBills);
 		
-		mntmNuevaFactura = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
-		mntmNuevaFactura.addActionListener(new ActionListener() {
+		mntmNewBill = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
+		mntmNewBill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new NewBillFrame(700, 500, UserMessages.MENU_ITEM_NEW_BILL);
 			}
 		});
-		mnFacturas.add(mntmNuevaFactura);
+		mnBills.add(mntmNewBill);
 		
-		mntmBuscar = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_BILL);
-		mnFacturas.add(mntmBuscar);
+		mntmSearchBill = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_BILL);
+		mnBills.add(mntmSearchBill);
+	}
+	
+	public void initMenuClients() {
+		mnClients = new JMenu(UserMessages.MENU_CLIENTES);
+		menuBar.add(mnClients);
+		
+		mntmNewClient = new JMenuItem(UserMessages.MENU_ITEM_NEW_CLIENT);
+		mnClients.add(mntmNewClient);
+		
+		mntmSearchClient = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_CLIENT);
+		mnClients.add(mntmSearchClient);
 	}
 	
 	/**
