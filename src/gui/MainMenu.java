@@ -1,6 +1,7 @@
 package gui;
 
 import SuperClasses.MyFrame;
+import utils.GeneralConfigurations;
 import utils.UserMessages;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -64,7 +65,7 @@ public class MainMenu extends MyFrame {
 		mntmSeeBills = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
 		mntmSeeBills.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SeeBillsFrame(700, 500, UserMessages.MENU_ITEM_SEE_BILLS);
+				new SeeBillsFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_SEE_BILLS);
 			}
 		});
 		mnBills.add(mntmSeeBills);
@@ -72,7 +73,7 @@ public class MainMenu extends MyFrame {
 		mntmNewBill = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
 		mntmNewBill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new NewBillFrame(700, 500, UserMessages.MENU_ITEM_NEW_BILL);
+				new NewBillFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_NEW_BILL);
 			}
 		});
 		mnBills.add(mntmNewBill);
@@ -86,6 +87,11 @@ public class MainMenu extends MyFrame {
 		menuBar.add(mnClients);
 		
 		mntmNewClient = new JMenuItem(UserMessages.MENU_ITEM_NEW_CLIENT);
+		mntmNewClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new NewClientFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_NEW_CLIENT);
+			}
+		});
 		mnClients.add(mntmNewClient);
 		
 		mntmSearchClient = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_CLIENT);
