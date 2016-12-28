@@ -49,4 +49,5 @@ public class UserMessages {
 	public static final String DIALOG_ADD_PHONE_TITLE 			= "Agregar teléfono";
 	public static final String DIALOG_PREFIX 					= "Prefijo";
 	public static final String DIALOG_PHONE 					= "Teléfono";
+	public static final String DIALOG_EMAIL 					= "Correo electrónico";
 }

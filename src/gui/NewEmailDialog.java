@@ -4,12 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map.Entry;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,29 +14,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import exceptions.InvalidTelephoneException;
-import participants.Telephone;
+import exceptions.InvalidEmailException;
+import participants.Email;
 import utils.GeneralConfigurations;
-import utils.Prefix;
 import utils.TransferData;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
-public class NewPhoneDialog extends JDialog {
+public class NewEmailDialog extends JDialog {
 
 	// Properties
 	private JPanel contentPane;
 	private JPanel buttonPane;
 	private JButton okButton;
 	private JButton cancelButton;
-	private JComboBox<String> comboPrefix;
-	private DefaultComboBoxModel<String> dcbmPrefixes;
-	private JTextField txtPhoneNumber;
-	private JLabel lblPhone;
-	private JLabel lblPrefix;
+	private JTextField txtEmail;
+	private JLabel lblEmail;
 	
 	// Constructor
-	public NewPhoneDialog() {
+	public NewEmailDialog() {
 		this.init();
 	}
 	
@@ -97,70 +90,42 @@ public class NewPhoneDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		this.initComboBox();
 		this.initTextFields();
 		this.initLabels();
-	}
-	
-	/**
-	 * Init combobox
-	 */
-	private void initComboBox() {
-		dcbmPrefixes = new DefaultComboBoxModel<String>();
-		this.fillComboBoxModel();
-		
-		comboPrefix = new JComboBox<String>();
-		comboPrefix.setModel(dcbmPrefixes);
-		comboPrefix.setSelectedIndex(3);
-		comboPrefix.setBounds(42, 48, 114, 20);
-		contentPane.add(comboPrefix);
-	}
-	
-	/**
-	 * Fill combobox with static countries telephone prefixes
-	 */
-	private void fillComboBoxModel() {
-		for (Entry<String, String> i : Prefix.INTERNATIONAL_PREFIXS.entrySet()) {
-			dcbmPrefixes.addElement(i.getKey());
-		}
 	}
 	
 	/**
 	 * Init text fields
 	 */
 	private void initTextFields() {
-		txtPhoneNumber = new JTextField();
-		txtPhoneNumber.setBounds(198, 48, 137, 20);
-		contentPane.add(txtPhoneNumber);
-		txtPhoneNumber.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setBounds(89, 48, 199, 20);
+		contentPane.add(txtEmail);
+		txtEmail.setColumns(10);
 	}
 	
 	/**
 	 * Init labels
 	 */
 	private void initLabels() {
-		lblPhone = new JLabel(UserMessages.DIALOG_PHONE);
-		lblPhone.setBounds(198, 23, 137, 14);
-		contentPane.add(lblPhone);
-		
-		lblPrefix = new JLabel(UserMessages.DIALOG_PREFIX);
-		lblPrefix.setBounds(42, 23, 78, 14);
-		contentPane.add(lblPrefix);
+		lblEmail = new JLabel(UserMessages.DIALOG_EMAIL);
+		lblEmail.setBounds(89, 23, 199, 14);
+		contentPane.add(lblEmail);
 	}
 	
 	/**
-	 * Catch combobox and textfield values and stores them into TransferData
+	 * Catch textfield value and stores them into TransferData
 	 * Then, dispose the dialog
 	 */
 	private void okButtonAction() {
 		try {
-			Telephone tl = new Telephone(txtPhoneNumber.getText(), Prefix.INTERNATIONAL_PREFIXS.get(comboPrefix.getSelectedItem()));
-			TransferData.PHONE = tl.getNumber();
-			TransferData.PREFIX = tl.getPrefix();
+			Email em = new Email(txtEmail.getText());
+			TransferData.EMAIL = em.getEmail();
 			dispose();
 		}
-		catch(InvalidTelephoneException e) {
+		catch(InvalidEmailException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+		
 	}
 }

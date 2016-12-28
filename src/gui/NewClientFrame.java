@@ -79,7 +79,12 @@ public class NewClientFrame extends MyFrame {
 		btnAddEmail.setBounds(389, 147, 199, 23);
 		btnAddEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Email");
+				@SuppressWarnings("unused")
+				NewEmailDialog newEmail = new NewEmailDialog();
+				if (!TransferData.EMAIL.equals("")) {
+					dlmEmails.addElement(TransferData.EMAIL);
+					TransferData.EMAIL = "";
+				}
 			}
 		});
 		contentPane.add(btnAddEmail);
