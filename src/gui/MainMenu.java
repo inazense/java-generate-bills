@@ -65,7 +65,7 @@ public class MainMenu extends MyFrame {
 		mntmSeeBills = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
 		mntmSeeBills.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SeeBillsFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_SEE_BILLS);
+				new SeeBillsFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEE_BILLS);
 			}
 		});
 		mnBills.add(mntmSeeBills);
@@ -73,7 +73,7 @@ public class MainMenu extends MyFrame {
 		mntmNewBill = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
 		mntmNewBill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new NewBillFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_NEW_BILL);
+				new NewBillFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_BILL);
 			}
 		});
 		mnBills.add(mntmNewBill);
@@ -89,7 +89,7 @@ public class MainMenu extends MyFrame {
 		mntmNewClient = new JMenuItem(UserMessages.MENU_ITEM_NEW_CLIENT);
 		mntmNewClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewClientFrame(GeneralConfigurations.WIDTH_SUBFRAMES, GeneralConfigurations.HEIGHT_SUBFRAMES, UserMessages.MENU_ITEM_NEW_CLIENT);
+				new NewClientFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_CLIENT);
 			}
 		});
 		mnClients.add(mntmNewClient);

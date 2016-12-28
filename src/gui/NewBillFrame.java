@@ -14,7 +14,7 @@ public class NewBillFrame extends MyFrame {
 	}
 	
 	// Methods
-	public void init() {
+	private void init() {
 		setVisible(true);
 	}
 }

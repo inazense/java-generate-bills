@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
+import utils.TransferData;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
@@ -60,7 +61,7 @@ public class NewClientFrame extends MyFrame {
 	/**
 	 * Init all the components of the frame
 	 */
-	public void init() {
+	private void init() {
 		setVisible(true);
 		this.initLabels();
 		this.initSeparators();
@@ -73,6 +74,7 @@ public class NewClientFrame extends MyFrame {
 	 * Init buttons into frame
 	 */
 	private void initButtons() {
+		// Add mail
 		btnAddEmail = new JButton(UserMessages.NEW_CLIENT_ADD_EMAIL);
 		btnAddEmail.setBounds(389, 147, 199, 23);
 		btnAddEmail.addActionListener(new ActionListener() {
@@ -82,32 +84,38 @@ public class NewClientFrame extends MyFrame {
 		});
 		contentPane.add(btnAddEmail);
 		
+		// Add phone
 		btnAddPhone = new JButton(UserMessages.NEW_CLIENT_ADD_PHONE);
 		btnAddPhone.setBounds(95, 147, 199, 23);
 		btnAddPhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Telefono");
+				@SuppressWarnings("unused")
+				NewPhoneDialog newPhone = new NewPhoneDialog();
+				if (!TransferData.PREFIX.equals("") && !TransferData.PHONE.equals("")) {
+					dlmPhones.addElement(TransferData.PREFIX + " " + TransferData.PHONE);
+					TransferData.PREFIX = "";
+					TransferData.PHONE = "";
+				}
+				
 			}
 		});
 		contentPane.add(btnAddPhone);
 		
+		// Remove mail
 		btnRemoveEmail = new JButton(UserMessages.NEW_CLIENT_REMOVE_ITEM);
 		btnRemoveEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel<String> model = (DefaultListModel<String>) listEmails.getModel();
-	            model.remove(listEmails.getSelectedIndex());
-	            JOptionPane.showMessageDialog(null, UserMessages.NEW_CLIENT_REMOVED_EMAIL);
+				removeItemList(listEmails.getSelectedIndex(), listEmails, UserMessages.NEW_CLIENT_REMOVED_EMAIL);
 			}
 		});
 		btnRemoveEmail.setBounds(401, 334, 174, 23);
 		contentPane.add(btnRemoveEmail);
 		
+		// Remove phone
 		btnRemovePhone = new JButton(UserMessages.NEW_CLIENT_REMOVE_ITEM);
 		btnRemovePhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DefaultListModel<String> model = (DefaultListModel<String>) listPhones.getModel();
-	            model.remove(listPhones.getSelectedIndex());
-	            JOptionPane.showMessageDialog(null, UserMessages.NEW_CLIENT_REMOVED_PHONE);
+				removeItemList(listPhones.getSelectedIndex(), listPhones, UserMessages.NEW_CLIENT_REMOVED_PHONE);
 			}
 		});
 		btnRemovePhone.setBounds(107, 334, 174, 23);
@@ -164,6 +172,7 @@ public class NewClientFrame extends MyFrame {
 		listEmails = new JList<String>();
 		dlmEmails = new DefaultListModel<String>();
 		listEmails.setModel(dlmEmails);
+		listEmails.setSelectedIndex(-1);
 		scrollEmail.setViewportView(listEmails);
 	}
 	
@@ -213,5 +222,22 @@ public class NewClientFrame extends MyFrame {
 		txtSurnames.setBounds(346, 8, 262, 20);
 		txtSurnames.setColumns(10);
 		contentPane.add(txtSurnames);
+	}
+	
+	/**
+	 * Remove selected item from a list
+	 * @param index Integer index of the item.
+	 * @param list List wich I want to erase item
+	 * @param message Message if remove item is ok
+	 */
+	private void removeItemList(int index, JList<String> list, String message) {
+		if (index != -1) {
+			DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+            model.remove(index);
+            JOptionPane.showMessageDialog(null, message);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, UserMessages.NEW_CLIENT_ERROR_REMOVE);
+		}
 	}
 }

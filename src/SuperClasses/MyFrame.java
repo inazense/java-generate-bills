@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Superclass used to create JFrames
+ * @author Inazio
+ *
+ */
 @SuppressWarnings("serial")
 public class MyFrame extends JFrame {
 

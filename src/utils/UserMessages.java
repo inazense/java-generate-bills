@@ -30,15 +30,23 @@ public class UserMessages {
 	public static final String MENU_ITEM_SEE_BILLS	 			= "Ver facturas";
 	
 	// NewClient Frame
-	public static final String NEW_CLIENT_SURNAMES = "Apellidos:";
-	public static final String NEW_CLIENT_NAME = "Nombre:";
-	public static final String NEW_CLIENT_STREET = "Calle:";
-	public static final String NEW_CLIENT_LOCALITY = "Localidad:";
-	public static final String NEW_CLIENT_PROVINCE = "Provincia:";
-	public static final String NEW_CLIENT_POSTAL_CODE = "Código postal:";
-	public static final String NEW_CLIENT_ADD_PHONE = "Agregar teléfono";
-	public static final String NEW_CLIENT_ADD_EMAIL = "Agregar correo electrónico";
-	public static final String NEW_CLIENT_REMOVE_ITEM = "Borrar seleccionado";
-	public static final String NEW_CLIENT_REMOVED_EMAIL = "Correo electrónico eliminado";
-	public static final String NEW_CLIENT_REMOVED_PHONE = "Teléfono eliminado";
+	public static final String NEW_CLIENT_SURNAMES 				= "Apellidos:";
+	public static final String NEW_CLIENT_NAME 					= "Nombre:";
+	public static final String NEW_CLIENT_STREET 				= "Calle:";
+	public static final String NEW_CLIENT_LOCALITY 				= "Localidad:";
+	public static final String NEW_CLIENT_PROVINCE 				= "Provincia:";
+	public static final String NEW_CLIENT_POSTAL_CODE 			= "Código postal:";
+	public static final String NEW_CLIENT_ADD_PHONE 			= "Agregar teléfono";
+	public static final String NEW_CLIENT_ADD_EMAIL 			= "Agregar correo electrónico";
+	public static final String NEW_CLIENT_REMOVE_ITEM 			= "Borrar seleccionado";
+	public static final String NEW_CLIENT_REMOVED_EMAIL 		= "Correo electrónico eliminado";
+	public static final String NEW_CLIENT_REMOVED_PHONE 		= "Teléfono eliminado";
+	public static final String NEW_CLIENT_ERROR_REMOVE 			= "No hay nada seleccionado para borrar";
+	
+	// MyDialog buttons
+	public static final String DIALOG_OK_BUTTON 				= "Aceptar";
+	public static final String DIALOG_CANCEL_BUTTON 			= "Cancelar";
+	public static final String DIALOG_ADD_PHONE_TITLE 			= "Agregar teléfono";
+	public static final String DIALOG_PREFIX 					= "Prefijo";
+	public static final String DIALOG_PHONE 					= "Teléfono";
 }
