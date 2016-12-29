@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
+import exceptions.InvalidCatchNewClientFieldsException;
 import utils.TransferData;
 import utils.UserMessages;
 
@@ -26,6 +27,7 @@ public class NewClientFrame extends MyFrame {
 	private JButton btnAddPhone;
 	private JButton btnRemoveEmail;
 	private JButton btnRemovePhone;
+	private JButton btnSaveData;
 	
 	private JLabel lblLocality;
 	private JLabel lblName;
@@ -125,6 +127,22 @@ public class NewClientFrame extends MyFrame {
 		});
 		btnRemovePhone.setBounds(107, 334, 174, 23);
 		contentPane.add(btnRemovePhone);
+		
+		// Save button
+		btnSaveData = new JButton(UserMessages.SAVE_DATA);
+		btnSaveData.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				try {
+					saveClient();
+				}
+				catch(InvalidCatchNewClientFieldsException error1) {
+					JOptionPane.showMessageDialog(null, error1.getMessage());
+				}
+			}
+		});
+		btnSaveData.setBounds(585, 427, 89, 23);
+		contentPane.add(btnSaveData);
 	}
 	
 	/**
@@ -243,6 +261,23 @@ public class NewClientFrame extends MyFrame {
 		}
 		else {
 			JOptionPane.showMessageDialog(null, UserMessages.NEW_CLIENT_ERROR_REMOVE);
+		}
+	}
+	
+	/**
+	 * Save client in a public static variable
+	 * @throws InvalidCatchNewClientFieldsException
+	 */
+	private void saveClient() throws InvalidCatchNewClientFieldsException {
+		if (txtName.getText().equals("")) {
+			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_NAME);
+		}
+		else if (txtSurnames.getText().equals("")) {
+			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_SURNAME); 
+		}
+		else {
+			// TODO Implement way to save Client into TransferData
+			dispose();
 		}
 	}
 }

@@ -2,22 +2,29 @@ package utils;
 
 public class UserMessages {
 	
+	// Generic
+	public static final String SAVE_DATA 						= "Guardar";
+	
 	// Telephone Exceptions
-	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "Phone have more than 15 characters";
-	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "Phone number is not numeric";
-	public static final String PREFIX_FORMAT_NOT_VALID 			= "Prefix format needs to start with + and only accept numbers before that";
+	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
+	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "El teléfono contiene caracteres no numéricos";
+	public static final String PREFIX_FORMAT_NOT_VALID 			= "El formato del prefijo necesita comenzar con + y solo acepta números después de ese signo";
 	
 	// Email Exceptions
-	public static final String EMAIL_NOT_VALID 					= "Email is not in a valid format";
+	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
 	
 	// Payment Exceptions
-	public static final String EMPTY_PAYMENT_CONCEPT 			= "Payment cannot be empty"; 
-	public static final String NEGATIVE_AMOUNT 					= "Amount cannot be negative";
-	public static final String NO_AMOUNT 						= "You need to insert an amount for this work";
+	public static final String EMPTY_PAYMENT_CONCEPT 			= "El pago no puede estar vacío"; 
+	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
+	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
 	
 	// Bill Exceptions
-	public static final String MANDATORY_BILL_NUMBER 			= "You must to write a bill number";
-	public static final String MORE_THAN_0_PAYMENTS 			= "You need to add a payment before that action";
+	public static final String MANDATORY_BILL_NUMBER 			= "Debes escribir un número de factura";
+	public static final String MORE_THAN_0_PAYMENTS 			= "Necesitas agregar algún trabajo antes de realizar esta tarea";
+	
+	// Catch new client fields GUI Exceptions
+	public static final String MANDATORY_CLIENT_NAME 			= "Debes escribir un nombre";
+	public static final String MANDATORY_CLIENT_SURNAME 		= "Debes escribir un apellido";
 	
 	// MainMenu Frame
 	public static final String MAIN_TITLE 						= "MP Reformas - Facturas";

@@ -26,8 +26,8 @@ public class NewEmailDialog extends JDialog {
 	// Properties
 	private JPanel contentPane;
 	private JPanel buttonPane;
-	private JButton okButton;
-	private JButton cancelButton;
+	private JButton btnOk;
+	private JButton btnCancel;
 	private JTextField txtEmail;
 	private JLabel lblEmail;
 	
@@ -68,26 +68,26 @@ public class NewEmailDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton(UserMessages.DIALOG_OK_BUTTON);
-				okButton.addActionListener(new ActionListener() {
+				btnOk = new JButton(UserMessages.DIALOG_OK_BUTTON);
+				btnOk.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
 						okButtonAction();
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				btnOk.setActionCommand("OK");
+				buttonPane.add(btnOk);
 			}
 			{
-				cancelButton = new JButton(UserMessages.DIALOG_CANCEL_BUTTON);
-				cancelButton.addActionListener(new ActionListener() {
+				btnCancel = new JButton(UserMessages.DIALOG_CANCEL_BUTTON);
+				btnCancel.addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 		this.initTextFields();
