@@ -13,6 +13,12 @@ import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
 import exceptions.InvalidCatchNewClientFieldsException;
+import exceptions.InvalidEmailException;
+import exceptions.InvalidTelephoneException;
+import participants.Address;
+import participants.Client;
+import participants.Email;
+import participants.Telephone;
 import utils.TransferData;
 import utils.UserMessages;
 
@@ -136,7 +142,7 @@ public class NewClientFrame extends MyFrame {
 				try {
 					saveClient();
 				}
-				catch(InvalidCatchNewClientFieldsException error1) {
+				catch(InvalidCatchNewClientFieldsException | InvalidTelephoneException | InvalidEmailException error1) {
 					JOptionPane.showMessageDialog(null, error1.getMessage());
 				}
 			}
@@ -261,14 +267,17 @@ public class NewClientFrame extends MyFrame {
 		}
 		else {
 			JOptionPane.showMessageDialog(null, UserMessages.NEW_CLIENT_ERROR_REMOVE);
+			TransferData.CLIENT = null;
 		}
 	}
 	
 	/**
 	 * Save client in a public static variable
 	 * @throws InvalidCatchNewClientFieldsException
+	 * @throws InvalidTelephoneException 
+	 * @throws InvalidEmailException 
 	 */
-	private void saveClient() throws InvalidCatchNewClientFieldsException {
+	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException {
 		if (txtName.getText().equals("")) {
 			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_NAME);
 		}
@@ -276,8 +285,64 @@ public class NewClientFrame extends MyFrame {
 			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_SURNAME); 
 		}
 		else {
-			// TODO Implement way to save Client into TransferData
+			// Address
+			Address ad = new Address();
+			ad.setLocality(txtLocality.getText());
+			ad.setProvince(txtProvince.getText());
+			ad.setPostalCode(txtPostalCode.getText());
+			ad.setStreet(txtStreet.getText());
+			
+			// Client
+			Client cl = new Client();
+			cl.setName(txtName.getText());
+			cl.setSurname(txtSurnames.getText());
+			cl.setAddress(ad);
+			
+			// Phone
+			for (int i = 0; i < dlmPhones.getSize(); i++) {
+				String[] phone = substractPhone(dlmPhones.getElementAt(i));
+				Telephone p = new Telephone(phone[0], phone[1]);
+				cl.addPhone(p);
+			}
+			
+			// Email
+			for (int i = 0; i < dlmEmails.getSize(); i++) {
+				Email em = new Email(dlmEmails.getElementAt(i));
+				cl.addEmail(em);
+			}
+			
+			TransferData.CLIENT = cl;
 			dispose();
 		}
+	}
+	
+	/**
+	 * Substract prefix and phone number of a String
+	 * @param completeNumber String with prefix and phone separated by a space
+	 * @return
+	 */
+	private String[] substractPhone(String completeNumber) {
+		String prefix = "";
+		String number = "";
+		boolean turn = true; // True = prefix turn, false = number turn
+		String[] phone = new String[2];
+		
+		for (char i : completeNumber.toCharArray()) {
+			if (String.valueOf(i) == " ") {
+				turn = false;
+			}
+			else {
+				if (turn) {
+					prefix += String.valueOf(i);
+				}
+				else {
+					number = String.valueOf(i);
+				}
+			}
+		}
+		phone[0] = prefix;
+		phone[1] = number;
+		
+		return phone;
 	}
 }
