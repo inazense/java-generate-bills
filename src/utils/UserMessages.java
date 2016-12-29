@@ -4,20 +4,7 @@ public class UserMessages {
 	
 	// Generic
 	public static final String SAVE_DATA 						= "Guardar";
-	
-	// Telephone Exceptions
-	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
-	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "El teléfono contiene caracteres no numéricos";
-	public static final String PREFIX_FORMAT_NOT_VALID 			= "El formato del prefijo necesita comenzar con + y solo acepta números después de ese signo";
-	
-	// Email Exceptions
-	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
-	
-	// Payment Exceptions
-	public static final String EMPTY_PAYMENT_CONCEPT 			= "El pago no puede estar vacío"; 
-	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
-	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
-	
+		
 	// Bill Exceptions
 	public static final String MANDATORY_BILL_NUMBER 			= "Debes escribir un número de factura";
 	public static final String MORE_THAN_0_PAYMENTS 			= "Necesitas agregar algún trabajo antes de realizar esta tarea";
@@ -25,6 +12,23 @@ public class UserMessages {
 	// Catch new client fields GUI Exceptions
 	public static final String MANDATORY_CLIENT_NAME 			= "Debes escribir un nombre";
 	public static final String MANDATORY_CLIENT_SURNAME 		= "Debes escribir un apellido";
+	
+	// Email Exceptions
+	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
+	
+	// Neodatis Exceptions
+	public static final String NEODATIS_NOT_CLOSED 				= "ERROR. La base de datos no está cerrada";
+	public static final String NEODATIS_IS_CLOSED 				= "ERROR. La base de datos ya está cerrada";
+	
+	// Payment Exceptions
+	public static final String EMPTY_PAYMENT_CONCEPT 			= "El pago no puede estar vacío"; 
+	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
+	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
+	
+	// Telephone Exceptions
+	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
+	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "El teléfono contiene caracteres no numéricos";
+	public static final String PREFIX_FORMAT_NOT_VALID 			= "El formato del prefijo necesita comenzar con + y solo acepta números después de ese signo";
 	
 	// MainMenu Frame
 	public static final String MAIN_TITLE 						= "MP Reformas - Facturas";
