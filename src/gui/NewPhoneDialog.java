@@ -154,7 +154,7 @@ public class NewPhoneDialog extends JDialog {
 	 */
 	private void okButtonAction() {
 		try {
-			Telephone tl = new Telephone(txtPhoneNumber.getText(), Prefix.INTERNATIONAL_PREFIXS.get(comboPrefix.getSelectedItem()));
+			Telephone tl = new Telephone(Prefix.INTERNATIONAL_PREFIXS.get(comboPrefix.getSelectedItem()), txtPhoneNumber.getText());
 			TransferData.PHONE = tl.getNumber();
 			TransferData.PREFIX = tl.getPrefix();
 			dispose();
