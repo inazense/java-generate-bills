@@ -47,4 +47,15 @@ public class Neodatis {
 			odb.close();
 		}
 	}
+	
+	/**
+	 * Add an object to database
+	 * @param obj Object to add. Generic because I want to store few different types of objects
+	 * @throws InvalidNeodatisException
+	 */
+	public void addObject(Object obj) throws InvalidNeodatisException {
+		this.openDatabase();
+		odb.store(obj);
+		this.closeDatabase();
+	}
  }

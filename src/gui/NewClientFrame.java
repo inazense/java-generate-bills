@@ -12,8 +12,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
+import database.Neodatis;
 import exceptions.InvalidCatchNewClientFieldsException;
 import exceptions.InvalidEmailException;
+import exceptions.InvalidNeodatisException;
 import exceptions.InvalidTelephoneException;
 import participants.Address;
 import participants.Client;
@@ -142,7 +144,7 @@ public class NewClientFrame extends MyFrame {
 				try {
 					saveClient();
 				}
-				catch(InvalidCatchNewClientFieldsException | InvalidTelephoneException | InvalidEmailException error1) {
+				catch(InvalidCatchNewClientFieldsException | InvalidTelephoneException | InvalidEmailException | InvalidNeodatisException error1) {
 					JOptionPane.showMessageDialog(null, error1.getMessage());
 				}
 			}
@@ -272,12 +274,13 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Save client in a public static variable
+	 * Save client in a public static variable and in Neodatis database
 	 * @throws InvalidCatchNewClientFieldsException
 	 * @throws InvalidTelephoneException 
 	 * @throws InvalidEmailException 
+	 * @throws InvalidNeodatisException 
 	 */
-	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException {
+	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException, InvalidNeodatisException {
 		if (txtName.getText().equals("")) {
 			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_NAME);
 		}
@@ -310,8 +313,9 @@ public class NewClientFrame extends MyFrame {
 				Email em = new Email(dlmEmails.getElementAt(i));
 				cl.addEmail(em);
 			}
-			
+
 			TransferData.CLIENT = cl;
+			new Neodatis().addObject(cl); // Call Neodatis class method to store it in ODB database
 			dispose();
 		}
 	}
@@ -328,7 +332,7 @@ public class NewClientFrame extends MyFrame {
 		String[] phone = new String[2];
 		
 		for (char i : completeNumber.toCharArray()) {
-			if (String.valueOf(i) == " ") {
+			if (String.valueOf(i).equals(" ")) {
 				turn = false;
 			}
 			else {
@@ -336,7 +340,7 @@ public class NewClientFrame extends MyFrame {
 					prefix += String.valueOf(i);
 				}
 				else {
-					number = String.valueOf(i);
+					number += String.valueOf(i);
 				}
 			}
 		}
