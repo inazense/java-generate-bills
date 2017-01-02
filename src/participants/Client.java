@@ -65,7 +65,7 @@ public class Client {
 	 * @return boolean. true if added properly, false if not
 	 */
 	public boolean addEmail(Email email) {
-		return this.addEmail(email);
+		return this.emails.add(email);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Client {
 	 * @return boolean. true if removed properly, false if not
 	 */
 	public boolean removeEmail(Email email) {
-		return this.emails.add(email);
+		return this.emails.remove(email);
 	}
 	
 	/**
