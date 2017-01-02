@@ -1,9 +1,13 @@
 package database;
 
+import java.util.Vector;
+
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
-
+import org.neodatis.odb.Objects;
 import exceptions.InvalidNeodatisException;
+import participants.Bill;
+import participants.Client;
 import utils.UserMessages;
 
 /**
@@ -14,8 +18,8 @@ import utils.UserMessages;
 public class Neodatis {
 
 	// Properties
-	public String path = "database/db";
-	public ODB odb;
+	private String path = "database/db.neodatis";
+	private ODB odb;
 	
 	// Constructor
 	public Neodatis() {}
@@ -57,5 +61,45 @@ public class Neodatis {
 		this.openDatabase();
 		odb.store(obj);
 		this.closeDatabase();
+	}
+	
+	/**
+	 * Return a vector with all clients stored in neodatis database
+	 * @return
+	 * @throws InvalidNeodatisException
+	 */
+	public Vector<Client> listClients() throws InvalidNeodatisException {
+		Vector<Client> vector = new Vector<Client>();
+		
+		this.openDatabase();
+		
+		Objects<Client> objs = odb.getObjects(Client.class);
+		while (objs.hasNext()) {
+			vector.add(objs.next());
+		}
+		
+		this.closeDatabase();
+		
+		return vector;
+	}
+	
+	/**
+	 * Return a vector with all bills stored in neodatis database
+	 * @return
+	 * @throws InvalidNeodatisException
+	 */
+	public Vector<Bill> listBills() throws InvalidNeodatisException {
+		Vector<Bill> vector = new Vector<Bill>();
+		
+		this.openDatabase();
+		
+		Objects<Bill> objs = odb.getObjects(Bill.class);
+		while (objs.hasNext()) {
+			vector.add(objs.next());
+		}
+		
+		this.closeDatabase();
+		
+		return vector;
 	}
  }
