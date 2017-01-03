@@ -12,6 +12,7 @@ public class Client {
 	// Properties
 	private String name;
 	private String surname;
+	private int clientCode;
 	private Address address;
 	private Vector<Telephone> phones;
 	private Vector<Email> emails;
@@ -22,9 +23,10 @@ public class Client {
 		emails = new Vector<Email>();
 	}
 	
-	public Client(String name, String surname, Address address, Vector<Telephone> phones, Vector<Email> emails) {
+	public Client(String name, String surname, int clientCode, Address address, Vector<Telephone> phones, Vector<Email> emails) {
 		this.name = name;
 		this.surname = surname;
+		this.clientCode = clientCode;
 		this.address = address;
 		this.phones = phones;
 		this.emails = emails;
@@ -101,6 +103,14 @@ public class Client {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+	
+	public int getClientCode() {
+		return clientCode;
+	}
+	
+	public void setClientCode(int clientCode) {
+		this.clientCode = clientCode;
 	}
 
 	public Address getAddress() {
