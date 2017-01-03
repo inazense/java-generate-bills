@@ -12,7 +12,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
-import database.Neodatis;
 import exceptions.InvalidCatchNewClientFieldsException;
 import exceptions.InvalidEmailException;
 import exceptions.InvalidNeodatisException;
@@ -315,7 +314,7 @@ public class NewClientFrame extends MyFrame {
 			}
 
 			TransferData.CLIENT = cl;
-			new Neodatis().addObject(cl); // Call Neodatis class method to store it in ODB database
+			// TODO Save data in database
 			dispose();
 		}
 	}
