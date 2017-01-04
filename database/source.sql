@@ -1,5 +1,5 @@
 CREATE TABLE clients (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
 	name TEXT NOT NULL,
 	surname TEXT NOT NULL,
 	street TEXT,
@@ -9,29 +9,32 @@ CREATE TABLE clients (
 );
 
 CREATE TABLE emails (
-	client INT NOT NULL,
+	client INTEGER NOT NULL,
 	email TEXT NOT NULL,
 	PRIMARY KEY(client, email)
 	FOREIGN KEY(client) REFERENCES clients(id)
 );
 
 CREATE TABLE phones (
-	client INT NOT NULL,
+	client INTEGER NOT NULL,
 	phone TEXT NOT NULL,
 	PRIMARY KEY(client, phone)
 	FOREIGN KEY(client) REFERENCES clients(id)
 );
 
 CREATE TABLE bills (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	client INT NOT NULL,
-	vat DOUBLE NOT NULL DEFAULT 0.0
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	client INTEGER NOT NULL,
+	vat DOUBLE NOT NULL,
+	FOREIGN KEY(client) REFERENCES clients(id)
 );
 
 CREATE TABLE payments (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
+	bill INTEGER NOT NULL,
 	concept TEXT NOT NULL,
-	amount DOUBLE NOT NULL
+	amount DOUBLE NOT NULL,
+	FOREIGN KEY(bill) REFERENCES bills(id)
 );
 
 
