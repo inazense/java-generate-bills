@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import SuperClasses.MyFrame;
 import exceptions.InvalidCatchNewClientFieldsException;
 import exceptions.InvalidEmailException;
-import exceptions.InvalidNeodatisException;
 import exceptions.InvalidTelephoneException;
 import participants.Address;
 import participants.Client;
@@ -143,7 +142,7 @@ public class NewClientFrame extends MyFrame {
 				try {
 					saveClient();
 				}
-				catch(InvalidCatchNewClientFieldsException | InvalidTelephoneException | InvalidEmailException | InvalidNeodatisException error1) {
+				catch(InvalidCatchNewClientFieldsException | InvalidTelephoneException | InvalidEmailException error1) {
 					JOptionPane.showMessageDialog(null, error1.getMessage());
 				}
 			}
@@ -279,7 +278,7 @@ public class NewClientFrame extends MyFrame {
 	 * @throws InvalidEmailException 
 	 * @throws InvalidNeodatisException 
 	 */
-	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException, InvalidNeodatisException {
+	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException {
 		if (txtName.getText().equals("")) {
 			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_NAME);
 		}
