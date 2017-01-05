@@ -136,13 +136,13 @@ public class SQLiteHelper {
 		
 		switch (filter) {
 			case "number":
-				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, phones WHERE number = '" + value + "' and id = client";
+				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, phones WHERE number like '%" + value + "%' and id = client";
 				break;
 			case "email":
-				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, emails WHERE email = '" + value + "' and id = client";
+				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, emails WHERE email like '%" + value + "%' and id = client";
 				break;
 			default:
-				sql = "SELECT * FROM clients WHERE " + filter + " = '" + value + "'";
+				sql = "SELECT * FROM clients WHERE " + filter + " like '%" + value + "%'";
 		}
 		
 		rs = read(sql);
