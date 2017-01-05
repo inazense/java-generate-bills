@@ -39,7 +39,7 @@ public class NewEmailDialog extends JDialog {
 	// Methods
 	
 	/**
-	 * Init the dialog
+	 * Initialize the dialog
 	 */
 	private void init() {
 		setBounds(100, 100, GeneralConfigurations.DIALOG_WIDTH, GeneralConfigurations.DIALOG_HEIGTH);
@@ -56,7 +56,7 @@ public class NewEmailDialog extends JDialog {
 	}
 	
 	/**
-	 * Init panels of dialog
+	 * Initialize panels of dialog
 	 */
 	private void initJPanels() {
 		contentPane = new JPanel();
@@ -95,7 +95,7 @@ public class NewEmailDialog extends JDialog {
 	}
 	
 	/**
-	 * Init text fields
+	 * Initialize text fields
 	 */
 	private void initTextFields() {
 		txtEmail = new JTextField();
@@ -105,7 +105,7 @@ public class NewEmailDialog extends JDialog {
 	}
 	
 	/**
-	 * Init labels
+	 * Initialize labels
 	 */
 	private void initLabels() {
 		lblEmail = new JLabel(UserMessages.DIALOG_EMAIL);

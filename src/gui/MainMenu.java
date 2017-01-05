@@ -45,7 +45,7 @@ public class MainMenu extends MyFrame {
 	}
 	
 	/**
-	 * Init menu bar
+	 * Initialize menu bar
 	 */
 	public void initMenuBar() {
 		menuBar = new JMenuBar();
@@ -56,7 +56,7 @@ public class MainMenu extends MyFrame {
 	}
 	
 	/**
-	 * Init submenu Bills
+	 * Initialize submenu Bills
 	 */
 	public void initMenuBills() {
 		mnBills = new JMenu(UserMessages.MENU_FACTURAS);
@@ -82,6 +82,9 @@ public class MainMenu extends MyFrame {
 		mnBills.add(mntmSearchBill);
 	}
 	
+	/**
+	 * Initialize submenu Clients
+	 */
 	public void initMenuClients() {
 		mnClients = new JMenu(UserMessages.MENU_CLIENTES);
 		menuBar.add(mnClients);
@@ -95,11 +98,16 @@ public class MainMenu extends MyFrame {
 		mnClients.add(mntmNewClient);
 		
 		mntmSearchClient = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_CLIENT);
+		mntmSearchClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new SeeClientsFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEARCH_CLIENT);
+			}
+		});
 		mnClients.add(mntmSearchClient);
 	}
 	
 	/**
-	 * Init icon label
+	 * Initialize icon label
 	 */
 	public void initLabels() {
 		lblIcon = new JLabel("");

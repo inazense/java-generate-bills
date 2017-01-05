@@ -4,6 +4,7 @@ public class UserMessages {
 	
 	// Generic
 	public static final String SAVE_DATA 						= "Guardar";
+	public static final String SEARCH 							= "Buscar";
 		
 	// Bill Exceptions
 	public static final String MANDATORY_BILL_NUMBER 			= "Debes escribir un número de factura";
@@ -15,10 +16,6 @@ public class UserMessages {
 	
 	// Email Exceptions
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
-	
-	// Neodatis Exceptions
-	public static final String NEODATIS_NOT_CLOSED 				= "ERROR. La base de datos no está cerrada";
-	public static final String NEODATIS_IS_CLOSED 				= "ERROR. La base de datos ya está cerrada";
 	
 	// Payment Exceptions
 	public static final String EMPTY_PAYMENT_CONCEPT 			= "El pago no puede estar vacío"; 
@@ -66,4 +63,10 @@ public class UserMessages {
 	public static final String DIALOG_PREFIX 					= "Prefijo";
 	public static final String DIALOG_PHONE 					= "Teléfono";
 	public static final String DIALOG_EMAIL 					= "Correo electrónico";
+	
+	// SeachClient Frame
+	public static final String CLIENT_LIST_INSTRUCTIONS 		= "(Doble clic al nombre del cliente para verlo y editarlo)";
+	public static final String CLIENT_LIST 						= "Listado de clientes";
+	public static final String CLIENT_PHONE 					= "Teléfono:";
+	public static final String CLIENT_EMAIL 					= "Email:";
 }

@@ -46,7 +46,7 @@ public class NewPhoneDialog extends JDialog {
 	// Methods
 	
 	/**
-	 * Init the dialog
+	 * Initialize the dialog
 	 */
 	private void init() {
 		setBounds(100, 100, GeneralConfigurations.DIALOG_WIDTH, GeneralConfigurations.DIALOG_HEIGTH);
@@ -63,7 +63,7 @@ public class NewPhoneDialog extends JDialog {
 	}
 	
 	/**
-	 * Init panels of dialog
+	 * Initialize panels of dialog
 	 */
 	private void initJPanels() {
 		contentPane = new JPanel();
@@ -103,7 +103,7 @@ public class NewPhoneDialog extends JDialog {
 	}
 	
 	/**
-	 * Init combobox
+	 * Initialize combobox
 	 */
 	private void initComboBox() {
 		dcbmPrefixes = new DefaultComboBoxModel<String>();
@@ -126,7 +126,7 @@ public class NewPhoneDialog extends JDialog {
 	}
 	
 	/**
-	 * Init text fields
+	 * Initialize text fields
 	 */
 	private void initTextFields() {
 		txtPhoneNumber = new JTextField();
@@ -136,7 +136,7 @@ public class NewPhoneDialog extends JDialog {
 	}
 	
 	/**
-	 * Init labels
+	 * Initialize labels
 	 */
 	private void initLabels() {
 		lblPhone = new JLabel(UserMessages.DIALOG_PHONE);

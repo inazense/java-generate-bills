@@ -71,7 +71,7 @@ public class NewClientFrame extends MyFrame {
 	// Methods
 	
 	/**
-	 * Init all the components of the frame
+	 * Initialize all the components of the frame
 	 */
 	private void init() {
 		setVisible(true);
@@ -83,7 +83,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Init buttons into frame
+	 * Initialize buttons into frame
 	 */
 	private void initButtons() {
 		// Add mail
@@ -156,7 +156,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Init labels into jframe
+	 * Initialize labels into jframe
 	 */
 	private void initLabels() {
 		lblLocality = new JLabel(UserMessages.NEW_CLIENT_LOCALITY);
@@ -185,7 +185,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Init lists and scrollpanes into frame
+	 * Initialize lists and scrollpanes into frame
 	 */
 	private void initLists() {
 		scrollPhone = new JScrollPane();
@@ -210,7 +210,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Init separators into frame
+	 * Initialize separators into frame
 	 */
 	private void initSeparators() {
 		separator1 = new JSeparator();
@@ -223,7 +223,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Init text fields int frame
+	 * Initialize text fields int frame
 	 */
 	private void initTextFields() {
 		txtLocality = new JTextField();
