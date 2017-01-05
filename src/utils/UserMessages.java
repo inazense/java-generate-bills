@@ -25,6 +25,11 @@ public class UserMessages {
 	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
 	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
 	
+	// SQLite Exceptions
+	public static final String FAIL_INSERT_CLIENT 				= "Error al guardar el cliente";
+	public static final String FAIL_INSERT_EMAILS 				= "Error al guardar los correos electrónicos";
+	public static final String FAIL_INSERT_PHONES 				= "Error al guardar los teléfonos";
+	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
 	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "El teléfono contiene caracteres no numéricos";

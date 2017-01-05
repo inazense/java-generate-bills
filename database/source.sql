@@ -17,8 +17,9 @@ CREATE TABLE emails (
 
 CREATE TABLE phones (
 	client INTEGER NOT NULL,
-	phone TEXT NOT NULL,
-	PRIMARY KEY(client, phone)
+	prefix TEXT NOT NULL,
+	number TEXT NOT NULL,
+	PRIMARY KEY(client, prefix, number)
 	FOREIGN KEY(client) REFERENCES clients(id)
 );
 

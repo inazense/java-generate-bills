@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import SuperClasses.MyFrame;
+import database.SQLiteHelper;
 import exceptions.InvalidCatchNewClientFieldsException;
 import exceptions.InvalidEmailException;
 import exceptions.InvalidTelephoneException;
@@ -26,6 +28,8 @@ import utils.UserMessages;
 public class NewClientFrame extends MyFrame {
 
 	// Properties
+	private SQLiteHelper sHelper;
+	
 	private DefaultListModel<String> dlmEmails;
 	private DefaultListModel<String> dlmPhones;
 	
@@ -314,6 +318,9 @@ public class NewClientFrame extends MyFrame {
 
 			TransferData.CLIENT = cl;
 			// TODO Save data in database
+			sHelper = new SQLiteHelper();
+			this.insertClient(cl);
+			
 			dispose();
 		}
 	}
@@ -346,5 +353,56 @@ public class NewClientFrame extends MyFrame {
 		phone[1] = number;
 		
 		return phone;
+	}
+	
+	/**
+	 * Separate the client in their properties and then try to store into database
+	 * @param cl Client
+	 */
+	private void insertClient(Client cl) {
+		// INSERT CLIENT
+		String name = cl.getName();
+		String surname = cl.getSurname();
+		String street;
+		String postalCode;
+		String locality;
+		String province;
+		if (cl.getAddress() == null) {
+			street = null;
+			postalCode = null;
+			locality = null;
+			province = null;
+		}
+		else {
+			street = cl.getAddress().getStreet();
+			postalCode = cl.getAddress().getPostalCode();
+			locality = cl.getAddress().getLocality();
+			province = cl.getAddress().getProvince();
+		}
+		try {
+			sHelper.insertClient(name, surname, street, postalCode, locality, province);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_CLIENT);
+		}
+		
+		// INSERT EMAILS
+		if (!cl.getEmails().isEmpty() && cl.getEmails().size() > 0 && cl.getEmails() != null) {
+			try {
+				sHelper.insertEmails(sHelper.whatIsMaxClientNumber(), cl.getEmails());
+			}
+			catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_EMAILS);
+			}
+		}
+		
+		// INSERT PHONES
+		if (!cl.getPhones().isEmpty() && cl.getPhones().size() > 0 && cl.getPhones() != null) {
+			try {
+				sHelper.insertTelephones(sHelper.whatIsMaxClientNumber(), cl.getPhones());
+			}
+			catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_PHONES);
+			}
+		}
 	}
 }

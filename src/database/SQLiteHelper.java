@@ -95,7 +95,7 @@ public class SQLiteHelper {
 	 */
 	public void insertTelephones(int clientCode, Vector<Telephone> phones) throws SQLException {
 		for (Telephone i : phones) {
-			sql = "INSERT INTO phones(client, phone) VALUES (" + clientCode + ", '" + i.toString() + "')";
+			sql = "INSERT INTO phones(client, prefix, number) VALUES (" + clientCode + ", '" + i.getPrefix() + "', '" + i.getNumber() + "')";
 			insert(sql);
 		}
 	}
