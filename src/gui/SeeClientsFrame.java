@@ -1,8 +1,13 @@
 package gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -15,12 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import SuperClasses.MyFrame;
+import database.SQLiteHelper;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
 public class SeeClientsFrame extends MyFrame {
 
 	// Properties
+	private Map<Integer, String> clients;
+	
 	private DefaultListModel<String> dlmClients;
 	
 	private JButton btnSearch;
@@ -74,6 +82,11 @@ public class SeeClientsFrame extends MyFrame {
 	private void initButtons() {
 		btnSearch = new JButton(UserMessages.SEARCH);
 		btnSearch.setBounds(577, 151, 89, 23);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createFilter();
+			}
+		});
 		contentPane.add(btnSearch);
 	}
 	
@@ -133,14 +146,22 @@ public class SeeClientsFrame extends MyFrame {
 		dlmClients = new DefaultListModel<String>();
 		listClients.setModel(dlmClients);
 		listClients.setSelectedIndex(-1);
+		
 		// Double click event
 		listClients.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					JOptionPane.showMessageDialog(null, "Test");
+					// TODO Implement client filter dialog
 				}
 			}
 		});
+		try {
+			this.clients = new SQLiteHelper().showAllClients();
+			this.fillList();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+		}
 		
 		scrollPane.setViewportView(listClients);
 	}
@@ -194,5 +215,83 @@ public class SeeClientsFrame extends MyFrame {
 		txtSurname.setColumns(10);
 		txtSurname.setBounds(396, 33, 270, 20);
 		contentPane.add(txtSurname);
+	}
+	
+	/**
+	 * Fill list with clients of database
+	 */
+	private void fillList() {
+		
+		this.clearList();
+		
+		for (Entry<Integer, String> i : clients.entrySet()) {
+			dlmClients.addElement(i.getKey() + ". " + i.getValue());
+		}
+		
+	}
+	
+	/**
+	 * Remove all elements of the list
+	 */
+	private void clearList() {
+		DefaultListModel<String> listModel = (DefaultListModel<String>) listClients.getModel();
+		listModel.removeAllElements();
+	}
+	
+	/**
+	 * Catch values from textfields and pass corresponding name of field in database and the value to 
+	 * get properly results into where clausure.
+	 * Then, fill JList with them
+	 */
+	private void createFilter() {
+		String[] filters 	= new String[6];
+		String[] values 	= new String[6];
+		String filter 	= "";
+		String value 	= "";
+		int filtersWrited = 0;
+		
+		values[0] = txtName.getText();
+		values[1] = txtSurname.getText();
+		values[2] = txtLocality.getText();
+		values[3] = txtProvince.getText();
+		values[4] = txtPhone.getText();
+		values[5] = txtEmail.getText();
+		
+		filters[0] = "name";
+		filters[1] = "surname";
+		filters[2] = "locality";
+		filters[3] = "province";
+		filters[4] = "number";
+		filters[5] = "email";
+		
+		for (int i = 0; i < filters.length; i++) {
+			
+			if (!values[i].equals("")) {
+				filtersWrited++;
+				filter 	= filters[i];
+				value 	= values[i];
+			}
+			
+		}
+		
+		if (filtersWrited > 1) {
+			JOptionPane.showMessageDialog(null, UserMessages.MORE_THAN_ONE_FILTER);
+		}
+		else if (filtersWrited == 1) {
+			try {
+				this.clients = new SQLiteHelper().showFilteredClients(filter, value);
+				this.fillList();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_FILTERS);
+			}
+		}
+		else {
+			try {
+				this.clients = new SQLiteHelper().showAllClients();
+				this.fillList();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+			}
+		}
 	}
 }

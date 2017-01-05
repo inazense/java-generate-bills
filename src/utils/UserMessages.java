@@ -26,6 +26,8 @@ public class UserMessages {
 	public static final String FAIL_INSERT_CLIENT 				= "Error al guardar el cliente";
 	public static final String FAIL_INSERT_EMAILS 				= "Error al guardar los correos electrónicos";
 	public static final String FAIL_INSERT_PHONES 				= "Error al guardar los teléfonos";
+	public static final String FAIL_LOAD_CLIENTS 				= "Error al cargar el listado de clientes";
+	public static final String FAIL_LOAD_FILTERS 				= "Error al cargar el listado de clientes con los filtros";
 	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
@@ -69,4 +71,5 @@ public class UserMessages {
 	public static final String CLIENT_LIST 						= "Listado de clientes";
 	public static final String CLIENT_PHONE 					= "Teléfono:";
 	public static final String CLIENT_EMAIL 					= "Email:";
+	public static final String MORE_THAN_ONE_FILTER				= "La versión actual del programa solo soporta un filtro por cada búsqueda.\nEstamos trabajando en ello (previo pago mwjajajaja)";
 }

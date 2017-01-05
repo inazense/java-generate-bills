@@ -2,6 +2,8 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import participants.Email;
@@ -98,5 +100,58 @@ public class SQLiteHelper {
 			sql = "INSERT INTO phones(client, prefix, number) VALUES (" + clientCode + ", '" + i.getPrefix() + "', '" + i.getNumber() + "')";
 			insert(sql);
 		}
+	}
+	
+	/**
+	 * Returns name, surname, locality and client code to show in search clients.
+	 * @return HashMap. Key -> cliendCode. String -> name + surname + locality
+	 * @throws SQLException
+	 */
+	public Map<Integer, String> showAllClients() throws SQLException {
+		Map<Integer, String> clients = new HashMap<Integer, String>();
+		
+		rs = read("SELECT * FROM clients");
+		while (rs.next()) {
+			String name = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
+			int key = rs.getInt("id");
+			clients.put(key, name);
+		}
+		
+		return clients;
+	}
+	
+	/**
+	 * Returns name, surname, locality and client code to show in search clients.
+	 * @param name
+	 * @param surname
+	 * @param locality
+	 * @param province
+	 * @param phone
+	 * @param email
+	 * @return HashMap. Key -> cliendCode. String -> name + surname + locality
+	 * @throws SQLException 
+	 */
+	public Map<Integer, String> showFilteredClients(String filter, String value) throws SQLException {
+		Map<Integer, String> clients = new HashMap<Integer, String>();
+		
+		switch (filter) {
+			case "number":
+				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, phones WHERE number = '" + value + "' and id = client";
+				break;
+			case "email":
+				sql = "SELECT DISTINCT id, name, surname, locality FROM clients, emails WHERE email = '" + value + "' and id = client";
+				break;
+			default:
+				sql = "SELECT * FROM clients WHERE " + filter + " = '" + value + "'";
+		}
+		
+		rs = read(sql);
+		while (rs.next()) {
+			String name = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
+			int key = rs.getInt("id");
+			clients.put(key, name);
+		}
+		
+		return clients;
 	}
 }

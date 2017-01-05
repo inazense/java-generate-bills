@@ -260,8 +260,8 @@ public class NewClientFrame extends MyFrame {
 	/**
 	 * Remove selected item from a list
 	 * @param index Integer index of the item.
-	 * @param list List wich I want to erase item
-	 * @param message Message if remove item is ok
+	 * @param list List which I want to erase item
+	 * @param message Message if remove item is OK
 	 */
 	private void removeItemList(int index, JList<String> list, String message) {
 		if (index != -1) {
@@ -276,7 +276,7 @@ public class NewClientFrame extends MyFrame {
 	}
 	
 	/**
-	 * Save client in a public static variable and in Neodatis database
+	 * Save client in a public static variable and in SQLite database
 	 * @throws InvalidCatchNewClientFieldsException
 	 * @throws InvalidTelephoneException 
 	 * @throws InvalidEmailException 
