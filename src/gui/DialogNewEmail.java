@@ -21,7 +21,7 @@ import utils.TransferData;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
-public class NewEmailDialog extends JDialog {
+public class DialogNewEmail extends JDialog {
 
 	// Properties
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class NewEmailDialog extends JDialog {
 	private JLabel lblEmail;
 	
 	// Constructor
-	public NewEmailDialog() {
+	public DialogNewEmail() {
 		this.init();
 	}
 	

@@ -24,7 +24,7 @@ import database.SQLiteHelper;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
-public class SeeClientsFrame extends MyFrame {
+public class FrameSearchClients extends MyFrame {
 
 	// Properties
 	private Map<Integer, String> clients;
@@ -57,7 +57,7 @@ public class SeeClientsFrame extends MyFrame {
 	private JTextField txtSurname;
 	
 	// Constructor
-	public SeeClientsFrame(int width, int height, String title) {
+	public FrameSearchClients(int width, int height, String title) {
 		super(width, height, title);
 		this.init();
 	}

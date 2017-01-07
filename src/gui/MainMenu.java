@@ -65,7 +65,7 @@ public class MainMenu extends MyFrame {
 		mntmSeeBills = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
 		mntmSeeBills.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SeeBillsFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEE_BILLS);
+				new FrameSearchBills(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEE_BILLS);
 			}
 		});
 		mnBills.add(mntmSeeBills);
@@ -73,7 +73,7 @@ public class MainMenu extends MyFrame {
 		mntmNewBill = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
 		mntmNewBill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new NewBillFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_BILL);
+				new FrameNewBill(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_BILL);
 			}
 		});
 		mnBills.add(mntmNewBill);
@@ -92,7 +92,7 @@ public class MainMenu extends MyFrame {
 		mntmNewClient = new JMenuItem(UserMessages.MENU_ITEM_NEW_CLIENT);
 		mntmNewClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewClientFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_CLIENT);
+				new FrameNewClient(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_NEW_CLIENT);
 			}
 		});
 		mnClients.add(mntmNewClient);
@@ -100,7 +100,7 @@ public class MainMenu extends MyFrame {
 		mntmSearchClient = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_CLIENT);
 		mntmSearchClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new SeeClientsFrame(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEARCH_CLIENT);
+				new FrameSearchClients(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEARCH_CLIENT);
 			}
 		});
 		mnClients.add(mntmSearchClient);

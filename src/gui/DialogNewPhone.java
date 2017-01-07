@@ -25,7 +25,7 @@ import utils.TransferData;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
-public class NewPhoneDialog extends JDialog {
+public class DialogNewPhone extends JDialog {
 
 	// Properties
 	private JPanel contentPane;
@@ -39,7 +39,7 @@ public class NewPhoneDialog extends JDialog {
 	private JLabel lblPrefix;
 	
 	// Constructor
-	public NewPhoneDialog() {
+	public DialogNewPhone() {
 		this.init();
 	}
 	

@@ -3,12 +3,12 @@ package gui;
 import SuperClasses.MyFrame;
 
 @SuppressWarnings("serial")
-public class NewBillFrame extends MyFrame {
+public class FrameSearchBills extends MyFrame {
 
 	// Properties
-
+	
 	// Constructor
-	public NewBillFrame(int width, int height, String title) {
+	public FrameSearchBills(int width, int height, String title) {
 		super(width, height, title);
 		this.init();
 	}

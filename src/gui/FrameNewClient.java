@@ -25,7 +25,7 @@ import utils.TransferData;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
-public class NewClientFrame extends MyFrame {
+public class FrameNewClient extends MyFrame {
 
 	// Properties
 	private SQLiteHelper sHelper;
@@ -63,7 +63,7 @@ public class NewClientFrame extends MyFrame {
 	private JTextField txtSurnames;
 	
 	// Constructor
-	public NewClientFrame(int width, int height, String title) {
+	public FrameNewClient(int width, int height, String title) {
 		super(width, height, title);
 		this.init();
 	}
@@ -92,7 +92,7 @@ public class NewClientFrame extends MyFrame {
 		btnAddEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
-				NewEmailDialog newEmail = new NewEmailDialog();
+				DialogNewEmail newEmail = new DialogNewEmail();
 				if (!TransferData.EMAIL.equals("")) {
 					dlmEmails.addElement(TransferData.EMAIL);
 					TransferData.EMAIL = "";
@@ -107,7 +107,7 @@ public class NewClientFrame extends MyFrame {
 		btnAddPhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
-				NewPhoneDialog newPhone = new NewPhoneDialog();
+				DialogNewPhone newPhone = new DialogNewPhone();
 				if (!TransferData.PREFIX.equals("") && !TransferData.PHONE.equals("")) {
 					dlmPhones.addElement(TransferData.PREFIX + " " + TransferData.PHONE);
 					TransferData.PREFIX = "";
