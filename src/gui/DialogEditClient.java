@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -23,6 +24,8 @@ import database.SQLiteHelper;
 import exceptions.InvalidEmailException;
 import exceptions.InvalidTelephoneException;
 import participants.Client;
+import participants.Email;
+import participants.Telephone;
 import utils.GeneralConfigurations;
 import utils.TransferData;
 import utils.UserMessages;
@@ -31,6 +34,9 @@ import utils.UserMessages;
 public class DialogEditClient extends JDialog {
 
 	// Properties
+	private SQLiteHelper sHelper;
+	private Client c;
+	
 	private DefaultListModel<String> dlmEmails;
 	private DefaultListModel<String> dlmPhones;
 	
@@ -71,6 +77,8 @@ public class DialogEditClient extends JDialog {
 	
 	// Constructor
 	public DialogEditClient(int clientCode) {
+		sHelper = new SQLiteHelper();
+		c = new Client();
 		this.clientCode = clientCode;
 		this.init();
 	}
@@ -111,8 +119,8 @@ public class DialogEditClient extends JDialog {
 				btnOk.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
-						// TODO Implement Action
-						
+						updateClient();
+						dispose();
 					}
 				});
 				btnOk.setActionCommand("OK");
@@ -123,8 +131,7 @@ public class DialogEditClient extends JDialog {
 				btnCancel.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
-						// TODO Implement dispose action
-						
+						dispose();
 					}
 				});
 				btnCancel.setActionCommand("Cancel");
@@ -347,9 +354,12 @@ public class DialogEditClient extends JDialog {
 		return phone;
 	}
 	
+	/**
+	 * Load client from database using clientCode
+	 */
 	private void loadClient() {
 		try {
-			Client c = new SQLiteHelper().getClientFromId(this.clientCode);
+			c = sHelper.getClientFromId(this.clientCode);
 			this.txtName.setText(c.getName());
 			this.txtSurnames.setText(c.getSurname());
 			this.txtStreet.setText(c.getAddress().getStreet());
@@ -370,6 +380,47 @@ public class DialogEditClient extends JDialog {
 		} catch (InvalidEmailException ex1) {
 			JOptionPane.showMessageDialog(null, ex1.getMessage());
 		}
-		
+	}
+	
+	/**
+	 * Update rows in clients, phones and emails tables
+	 */
+	private void updateClient() {
+		try {
+			// At first, delete old phones and emails (because if user deletes a phone or email, its easiest way to update it)
+			// And I only want to act against database if user press Save button
+			sHelper.deleteRowsByClient(c.getClientCode(), "phones");
+			sHelper.deleteRowsByClient(c.getClientCode(), "emails");
+			
+			// Insert Emails
+			Vector<Email> emails = new Vector<Email>();
+			for (int i = 0; i < dlmEmails.getSize(); i++) {
+				Email em = new Email(dlmEmails.getElementAt(i));
+				emails.add(em);
+			}
+			if (!emails.isEmpty() && emails.size() > 0 && emails != null) {
+				sHelper.insertEmails(c.getClientCode(), c.getEmails());
+			}
+			
+			// Insert phones
+			Vector<Telephone> phones = new Vector<Telephone>();
+			for (int i = 0; i < dlmPhones.getSize(); i++) {
+				String[] phone = substractPhone(dlmPhones.getElementAt(i));
+				Telephone p = new Telephone(phone[0], phone[1]);
+				phones.add(p);
+			}
+			if (!c.getPhones().isEmpty() && c.getPhones().size() > 0 && c.getPhones() != null) {
+				sHelper.insertTelephones(c.getClientCode(), c.getPhones());
+			}
+			
+			// Update client basic and address
+			sHelper.updateClient(c.getClientCode(), txtName.getText(), txtSurnames.getText(), txtStreet.getText(), txtPostalCode.getText(), txtLocality.getText(), txtProvince.getText());
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_CLIENT);
+		} catch (InvalidEmailException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (InvalidTelephoneException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 }

@@ -152,6 +152,12 @@ public class FrameSearchClients extends MyFrame {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					new DialogEditClient(clients.get(listClients.getSelectedValue()));
+					try {
+						clients = new SQLiteHelper().showAllClients();
+						fillList();
+					} catch (SQLException e) {
+						JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+					}
 				}
 			}
 		});

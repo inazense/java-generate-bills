@@ -29,12 +29,12 @@ public class SQLiteHelper {
 	// Methods
 	
 	/**
-	 * Insert a SQL sentence into database
+	 * Insert, delete or update an SQL sentence.
 	 * @param sql SQL sentence
 	 * @return boolean. true if insert is correct, false if not
 	 * @throws SQLException
 	 */
-	private void insert(String sql) throws SQLException {
+	private void dbAction(String sql) throws SQLException {
 		SingletonSQLite.getConnection().createStatement().executeUpdate(sql);
 	}
 	
@@ -44,7 +44,7 @@ public class SQLiteHelper {
 	 * @return ResultSet with result of the SQL query
 	 * @throws SQLException
 	 */
-	private ResultSet read(String sql) throws SQLException {
+	private ResultSet dbQuery(String sql) throws SQLException {
 		return SingletonSQLite.getConnection().createStatement().executeQuery(sql);
 	}
 	
@@ -55,7 +55,7 @@ public class SQLiteHelper {
 	 */
 	public int whatIsMaxClientNumber() throws SQLException {
 		sql = "SELECT MAX(id) FROM clients";
-		rs = this.read(sql);
+		rs = this.dbQuery(sql);
 		if (!rs.next()) {
 			return 0;
 		}
@@ -76,7 +76,7 @@ public class SQLiteHelper {
 	 */
 	public void insertClient(String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
 		sql = "INSERT INTO clients(name, surname, street, postalCode, locality, province) VALUES ('" + name + "', '" + surname + "', '" + street + "', '" + postalCode + "', '" + locality + "', '" + province + "')";
-		insert(sql);
+		dbAction(sql);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class SQLiteHelper {
 	public void insertEmails(int clientCode, Vector<Email> emails) throws SQLException {
 		for (Email i : emails) {
 			sql = "INSERT INTO emails(client, email) VALUES (" + clientCode + ", '" + i.getEmail() + "')";
-			insert(sql);
+			dbAction(sql);
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class SQLiteHelper {
 	public void insertTelephones(int clientCode, Vector<Telephone> phones) throws SQLException {
 		for (Telephone i : phones) {
 			sql = "INSERT INTO phones(client, prefix, number) VALUES (" + clientCode + ", '" + i.getPrefix() + "', '" + i.getNumber() + "')";
-			insert(sql);
+			dbAction(sql);
 		}
 	}
 	
@@ -113,7 +113,7 @@ public class SQLiteHelper {
 	public HashMap<String, Integer> showAllClients() throws SQLException {
 		HashMap<String, Integer> clients = new HashMap<String, Integer>();
 		
-		rs = read("SELECT * FROM clients");
+		rs = dbQuery("SELECT * FROM clients");
 		while (rs.next()) {
 			String key = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
 			int name = rs.getInt("id");
@@ -148,7 +148,7 @@ public class SQLiteHelper {
 				sql = "SELECT * FROM clients WHERE " + filter + " like '%" + value + "%'";
 		}
 		
-		rs = read(sql);
+		rs = dbQuery(sql);
 		while (rs.next()) {
 			String key= rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
 			int name = rs.getInt("id");
@@ -171,7 +171,7 @@ public class SQLiteHelper {
 		
 		// Client and address
 		sql = "SELECT * FROM clients WHERE id = " + id;
-		rs = this.read(sql);
+		rs = this.dbQuery(sql);
 		while (rs.next()) {
 			c.setClientCode(id);
 			c.setName(rs.getString("name"));
@@ -183,7 +183,7 @@ public class SQLiteHelper {
 		
 		// Phones
 		sql = "SELECT * FROM phones WHERE client = " + id;
-		rs = this.read(sql);
+		rs = this.dbQuery(sql);
 		Vector<Telephone> phones = new Vector<Telephone>();
 		while (rs.next()) {
 			phones.add(new Telephone(rs.getString("prefix"), rs.getString("number")));
@@ -195,7 +195,7 @@ public class SQLiteHelper {
 		// TODO Add mails
 		sql = "SELECT * FROM emails WHERE client = " + id;
 		Vector<Email> emails = new Vector<Email>();
-		rs = this.read(sql);
+		rs = this.dbQuery(sql);
 		while (rs.next()) {
 			emails.add(new Email(rs.getString("email")));
 		}
@@ -204,5 +204,29 @@ public class SQLiteHelper {
 		rs = null;
 		
 		return c;
+	}
+	
+	/**
+	 * Delete all rows with a clientCode into database phones or emails
+	 * @param clientCode Client clientCode field
+	 * @param table Only "phones" or "emails"
+	 * @throws SQLException
+	 */
+	public void deleteRowsByClient(int clientCode, String table) throws SQLException {
+		if (table.equals("phones") || table.equals("emails")) {
+			sql = "DELETE FROM " + table + " WHERE client = " + clientCode;
+			this.dbAction(sql);
+		}
+	}
+	
+	public void updateClient(int clientCode, String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
+		sql = "UPDATE clients SET name = '" + name 
+				+ "', surname = '" + surname 
+				+ "', street = '" + street 
+				+ "', postalCode = '" + postalCode 
+				+ "', locality = '" + locality 
+				+ "', province = '" + province 
+				+ "' WHERE id = " + clientCode;
+		this.dbAction(sql);
 	}
 }
