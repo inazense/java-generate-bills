@@ -3,9 +3,12 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
+import exceptions.InvalidEmailException;
+import exceptions.InvalidTelephoneException;
+import participants.Address;
+import participants.Client;
 import participants.Email;
 import participants.Telephone;
 
@@ -153,5 +156,53 @@ public class SQLiteHelper {
 		}
 		
 		return clients;
+	}
+	
+	/**
+	 * Get complete client from client id
+	 * @param id Integer. clientCode of Client
+	 * @return Client with basic data, address, telephones and emails
+	 * @throws SQLException 
+	 * @throws InvalidTelephoneException 
+	 * @throws InvalidEmailException 
+	 */
+	public Client getClientFromId(int id) throws SQLException, InvalidTelephoneException, InvalidEmailException {
+		Client c = new Client();
+		
+		// Client and address
+		sql = "SELECT * FROM clients WHERE id = " + id;
+		rs = this.read(sql);
+		while (rs.next()) {
+			c.setClientCode(id);
+			c.setName(rs.getString("name"));
+			c.setSurname(rs.getString("surname"));
+			c.setAddress(new Address(rs.getString("street"), rs.getString("postalCode"), rs.getString("locality"), rs.getString("province")));
+		}
+		
+		rs = null;
+		
+		// Phones
+		sql = "SELECT * FROM phones WHERE client = " + id;
+		rs = this.read(sql);
+		Vector<Telephone> phones = new Vector<Telephone>();
+		while (rs.next()) {
+			phones.add(new Telephone(rs.getString("prefix"), rs.getString("number")));
+		}
+		c.setPhones(phones);
+		
+		rs = null;
+		
+		// TODO Add mails
+		sql = "SELECT * FROM emails WHERE client = " + id;
+		Vector<Email> emails = new Vector<Email>();
+		rs = this.read(sql);
+		while (rs.next()) {
+			emails.add(new Email(rs.getString("email")));
+		}
+		c.setEmails(emails);
+		
+		rs = null;
+		
+		return c;
 	}
 }

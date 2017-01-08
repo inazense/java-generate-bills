@@ -28,6 +28,7 @@ public class UserMessages {
 	public static final String FAIL_INSERT_PHONES 				= "Error al guardar los teléfonos";
 	public static final String FAIL_LOAD_CLIENTS 				= "Error al cargar el listado de clientes";
 	public static final String FAIL_LOAD_FILTERS 				= "Error al cargar el listado de clientes con los filtros";
+	public static final String FAIL_LOAD_CLIENT_FIELDS 			= "Error al cargar los datos del cliente";
 	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";

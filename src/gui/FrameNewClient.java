@@ -317,7 +317,6 @@ public class FrameNewClient extends MyFrame {
 			}
 
 			TransferData.CLIENT = cl;
-			// TODO Save data in database
 			sHelper = new SQLiteHelper();
 			this.insertClient(cl);
 			
