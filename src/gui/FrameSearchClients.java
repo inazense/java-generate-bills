@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
@@ -27,7 +27,7 @@ import utils.UserMessages;
 public class FrameSearchClients extends MyFrame {
 
 	// Properties
-	private Map<Integer, String> clients;
+	private HashMap<String, Integer> clients;
 	
 	private DefaultListModel<String> dlmClients;
 	
@@ -151,8 +151,7 @@ public class FrameSearchClients extends MyFrame {
 		listClients.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
-					JOptionPane.showMessageDialog(null, "Test");
-					// TODO Implement client filter dialog
+					new DialogEditClient(clients.get(listClients.getSelectedValue()));
 				}
 			}
 		});
@@ -224,8 +223,8 @@ public class FrameSearchClients extends MyFrame {
 		
 		this.clearList();
 		
-		for (Entry<Integer, String> i : clients.entrySet()) {
-			dlmClients.addElement(i.getKey() + ". " + i.getValue());
+		for (Entry<String, Integer> i : clients.entrySet()) {
+			dlmClients.addElement(i.getKey());
 		}
 		
 	}

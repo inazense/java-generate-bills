@@ -107,13 +107,13 @@ public class SQLiteHelper {
 	 * @return HashMap. Key -> cliendCode. String -> name + surname + locality
 	 * @throws SQLException
 	 */
-	public Map<Integer, String> showAllClients() throws SQLException {
-		Map<Integer, String> clients = new HashMap<Integer, String>();
+	public HashMap<String, Integer> showAllClients() throws SQLException {
+		HashMap<String, Integer> clients = new HashMap<String, Integer>();
 		
 		rs = read("SELECT * FROM clients");
 		while (rs.next()) {
-			String name = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
-			int key = rs.getInt("id");
+			String key = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
+			int name = rs.getInt("id");
 			clients.put(key, name);
 		}
 		
@@ -131,8 +131,8 @@ public class SQLiteHelper {
 	 * @return HashMap. Key -> cliendCode. String -> name + surname + locality
 	 * @throws SQLException 
 	 */
-	public Map<Integer, String> showFilteredClients(String filter, String value) throws SQLException {
-		Map<Integer, String> clients = new HashMap<Integer, String>();
+	public HashMap<String, Integer> showFilteredClients(String filter, String value) throws SQLException {
+		HashMap<String, Integer> clients = new HashMap<String, Integer>();
 		
 		switch (filter) {
 			case "number":
@@ -147,8 +147,8 @@ public class SQLiteHelper {
 		
 		rs = read(sql);
 		while (rs.next()) {
-			String name = rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
-			int key = rs.getInt("id");
+			String key= rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality");
+			int name = rs.getInt("id");
 			clients.put(key, name);
 		}
 		

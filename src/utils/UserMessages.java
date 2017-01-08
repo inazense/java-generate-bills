@@ -71,5 +71,8 @@ public class UserMessages {
 	public static final String CLIENT_LIST 						= "Listado de clientes";
 	public static final String CLIENT_PHONE 					= "Teléfono:";
 	public static final String CLIENT_EMAIL 					= "Email:";
-	public static final String MORE_THAN_ONE_FILTER				= "La versión actual del programa solo soporta un filtro por cada búsqueda.\nEstamos trabajando en ello (previo pago mwjajajaja)";
+	public static final String MORE_THAN_ONE_FILTER				= "La versión actual del programa solo soporta un filtro por cada búsqueda.\nEstamos trabajando en ello";
+	
+	// EditClient Dialog
+	public static final String CLIENT_EDIT 						= "Editar cliente";
 }
