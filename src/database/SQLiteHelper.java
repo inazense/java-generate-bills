@@ -35,7 +35,7 @@ public class SQLiteHelper {
 	 * @throws SQLException
 	 */
 	private void dbAction(String sql) throws SQLException {
-		SingletonSQLite.getConnection().createStatement().executeUpdate(sql);
+		System.out.println(SingletonSQLite.getConnection().createStatement().executeUpdate(sql));
 	}
 	
 	/**
@@ -219,6 +219,17 @@ public class SQLiteHelper {
 		}
 	}
 	
+	/**
+	 * Update row in table clients with field id = clientCode 
+	 * @param clientCode
+	 * @param name
+	 * @param surname
+	 * @param street
+	 * @param postalCode
+	 * @param locality
+	 * @param province
+	 * @throws SQLException
+	 */
 	public void updateClient(int clientCode, String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
 		sql = "UPDATE clients SET name = '" + name 
 				+ "', surname = '" + surname 

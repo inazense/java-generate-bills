@@ -394,23 +394,23 @@ public class DialogEditClient extends JDialog {
 			
 			// Insert Emails
 			Vector<Email> emails = new Vector<Email>();
-			for (int i = 0; i < dlmEmails.getSize(); i++) {
+			for (int i = 0; i < dlmEmails.size(); i++) {
 				Email em = new Email(dlmEmails.getElementAt(i));
 				emails.add(em);
 			}
 			if (!emails.isEmpty() && emails.size() > 0 && emails != null) {
-				sHelper.insertEmails(c.getClientCode(), c.getEmails());
+				sHelper.insertEmails(c.getClientCode(), emails);
 			}
 			
 			// Insert phones
 			Vector<Telephone> phones = new Vector<Telephone>();
-			for (int i = 0; i < dlmPhones.getSize(); i++) {
+			for (int i = 0; i < dlmPhones.size(); i++) {
 				String[] phone = substractPhone(dlmPhones.getElementAt(i));
 				Telephone p = new Telephone(phone[0], phone[1]);
 				phones.add(p);
 			}
 			if (!c.getPhones().isEmpty() && c.getPhones().size() > 0 && c.getPhones() != null) {
-				sHelper.insertTelephones(c.getClientCode(), c.getPhones());
+				sHelper.insertTelephones(c.getClientCode(), phones);
 			}
 			
 			// Update client basic and address
