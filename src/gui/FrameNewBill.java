@@ -119,7 +119,7 @@ public class FrameNewBill extends MyFrame {
 					modelPayments.addRow(new Object[]{p.getPaymentConcept(), p.getAmount()});
 					txtConcept.setText("");
 					txtAmount.setText("");
-					lblTotal.setText(UserMessages.NEW_BILL_TOTAL + calculatesImport() + " " + UserMessages.CURRENCY_SYMBOL);
+					lblTotal.setText(UserMessages.NEW_BILL_TOTAL + String.format("%.2f", calculatesImport()) + " " + UserMessages.CURRENCY_SYMBOL);
 					lblWithoutVAT.setText(UserMessages.NEW_BILL_WITHOUT_VAT);
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, UserMessages.IS_NOT_DOUBLE);
@@ -150,7 +150,7 @@ public class FrameNewBill extends MyFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				modelPayments.removeRow(tblPayments.getSelectedRow());
-				lblTotal.setText(UserMessages.NEW_BILL_TOTAL + calculatesImport() + " " + UserMessages.CURRENCY_SYMBOL);
+				lblTotal.setText(UserMessages.NEW_BILL_TOTAL + String.format("%.2f", calculatesImport()) + " " + UserMessages.CURRENCY_SYMBOL);
 				if (modelPayments.getRowCount() > 0) {
 					lblWithoutVAT.setText(UserMessages.NEW_BILL_WITHOUT_VAT);
 				}
@@ -166,7 +166,7 @@ public class FrameNewBill extends MyFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				try {
-					lblTotal.setText(UserMessages.NEW_BILL_TOTAL + calculatesVAT(calculatesImport()) + " " + UserMessages.CURRENCY_SYMBOL);
+					lblTotal.setText(UserMessages.NEW_BILL_TOTAL + String.format("%.2f", calculatesVAT(calculatesImport())) + " " + UserMessages.CURRENCY_SYMBOL);
 					lblWithoutVAT.setText("");
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -428,30 +428,41 @@ public class FrameNewBill extends MyFrame {
 	 * @return boolean. true if there is not an exception, false if not
 	 */
 	private boolean saveBill() {
-		
-		try {
-			Bill b = new Bill();
-			b.setBillNumber(this.txtBillNumber.getText());
-			b.setVat(Double.parseDouble(this.txtVAT.getText()));
-			b.setPayments(new Vector<Payment>());
-			for (int i = 0; i < tblPayments.getRowCount(); i++) {
-				Payment p = new Payment();
-				p.setPaymentConcept((String)tblPayments.getValueAt(i, 0));
-				p.setAmount((Double)tblPayments.getValueAt(i, 1));
-				b.getPayments().add(p);
-			}
-			b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
-			
-			// TODO Save Bill into SQLite database
-			return true;
-		} 
-		catch (InvalidBillException | InvalidPaymentException | InvalidTelephoneException | InvalidEmailException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+		if (listClients.getSelectedIndex() == -1) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_CLIENT);
 			return false;
 		}
-		catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
-			return false;
+		else {
+			try {
+				
+				// Create the object
+				Bill b = new Bill();
+				b.setBillNumber(this.txtBillNumber.getText());
+				b.setVat(Double.parseDouble(this.txtVAT.getText()));
+				Vector<Payment> payments = new Vector<Payment>();
+				for (int i = 0; i < tblPayments.getRowCount(); i++) {
+					Payment p = new Payment();
+					p.setPaymentConcept((String)tblPayments.getValueAt(i, 0));
+					p.setAmount((Double)tblPayments.getValueAt(i, 1));
+					payments.add(p);
+				}
+				b.setPayments(payments);
+				b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
+				
+				// Save Bill into SQLite database
+				sHelper.insertBill(b);
+				sHelper.insertPayments(b.getBillNumber(), b.getPayments());
+				
+				return true;
+			} 
+			catch (InvalidBillException | InvalidPaymentException | InvalidTelephoneException | InvalidEmailException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				return false;
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+				return false;
+			}
 		}
 		
 	}

@@ -20,6 +20,7 @@ public class UserMessages {
 	// Catch new client fields GUI Exceptions
 	public static final String MANDATORY_CLIENT_NAME 			= "Debes escribir un nombre";
 	public static final String MANDATORY_CLIENT_SURNAME 		= "Debes escribir un apellido";
+	public static final String MANDATORY_SELECT_A_CLIENT 		= "Debes elegir un cliente al que facturar";
 	
 	// Email Exceptions
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
@@ -39,6 +40,8 @@ public class UserMessages {
 	public static final String FAIL_LOAD_CLIENTS 				= "Error al cargar el listado de clientes";
 	public static final String FAIL_LOAD_FILTERS 				= "Error al cargar el listado de clientes con los filtros";
 	public static final String FAIL_LOAD_CLIENT_FIELDS 			= "Error al cargar los datos del cliente";
+	public static final String FAIL_SAVE_BILLS 					= "Error al guardar la factura";
+	public static final String FAIL_SAVE_PAYMENTS 				= "Error al guardar los conceptos a cobrar";
 	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";

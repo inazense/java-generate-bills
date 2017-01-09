@@ -30,8 +30,9 @@ public class Bill {
 		this.client = client;
 		this.payments = payments;
 	}
-
+	
 	// Methods
+	
 	/**
 	 * Calculates total amount from works in the bill
 	 * @return double

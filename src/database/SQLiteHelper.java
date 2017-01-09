@@ -1,16 +1,22 @@
 package database;
 
+import java.security.InvalidParameterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
 
+import exceptions.InvalidBillException;
 import exceptions.InvalidEmailException;
+import exceptions.InvalidPaymentException;
 import exceptions.InvalidTelephoneException;
 import participants.Address;
+import participants.Bill;
 import participants.Client;
 import participants.Email;
+import participants.Payment;
 import participants.Telephone;
+import utils.UserMessages;
 
 /**
  * Used to work with SQLite database
@@ -102,6 +108,38 @@ public class SQLiteHelper {
 		for (Telephone i : phones) {
 			sql = "INSERT INTO phones(client, prefix, number) VALUES (" + clientCode + ", '" + i.getPrefix() + "', '" + i.getNumber() + "')";
 			dbAction(sql);
+		}
+	}
+	
+	/**
+	 * Insert bills into database
+	 * @param bill Object to insert (no Payments)
+	 * @throws Exception 
+	 */
+	public void insertBill(Bill bill) throws InvalidBillException {
+		sql = "INSERT INTO bills(id, client, vat) VALUES ('" + bill.getBillNumber() + "', " + bill.getClient().getClientCode() + ", " + bill.getVat() + ")";
+		try {
+			dbAction(sql);
+		} catch (SQLException e) {
+			throw new InvalidBillException(UserMessages.FAIL_SAVE_BILLS);
+		}
+	}
+	
+	/**
+	 * Insert Payments into database.
+	 * @param idBill Bill identifier. It is mandatory that there be in database - table bills
+	 * @param payments
+	 * @throws Exception 
+	 * @throws SQLException
+	 */
+	public void insertPayments(String idBill, Vector<Payment> payments) throws InvalidPaymentException {
+		for (Payment i : payments) {
+			sql = "INSERT INTO payments(bill, concept, amount) VALUES('" + idBill + "', '" + i.getPaymentConcept() + "', " + i.getAmount() + ")";
+			try {
+				dbAction(sql);
+			} catch (SQLException e) {
+				throw new InvalidParameterException(UserMessages.FAIL_SAVE_PAYMENTS);
+			}
 		}
 	}
 	
