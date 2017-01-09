@@ -73,8 +73,7 @@ public class UserMessages {
 	public static final String NEW_BILL_FAIL_SELECT_CLIENT 		= "Debes elegir algún cliente antes";
 	public static final String NEW_BILL_SAVED 					= "Factura guardada correctamente";
 	public static final String NEW_BILL_FAIL_SAVED 				= "Error al guardar la factura";
-	
-	
+	public static final String NEW_BILL_NO_ROW_SELECTED 		= "No hay ningún pago seleccionado";
 	
 	// NewClient Frame
 	public static final String NEW_CLIENT_SURNAMES 				= "Apellidos:";

@@ -149,11 +149,17 @@ public class FrameNewBill extends MyFrame {
 		this.btnDeletePayment.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				modelPayments.removeRow(tblPayments.getSelectedRow());
-				lblTotal.setText(UserMessages.NEW_BILL_TOTAL + String.format("%.2f", calculatesImport()) + " " + UserMessages.CURRENCY_SYMBOL);
-				if (modelPayments.getRowCount() > 0) {
-					lblWithoutVAT.setText(UserMessages.NEW_BILL_WITHOUT_VAT);
+				if (tblPayments.getSelectedRow() == -1) {
+					JOptionPane.showMessageDialog(null, UserMessages.NEW_BILL_NO_ROW_SELECTED);
 				}
+				else {
+					modelPayments.removeRow(tblPayments.getSelectedRow());
+					lblTotal.setText(UserMessages.NEW_BILL_TOTAL + String.format("%.2f", calculatesImport()) + " " + UserMessages.CURRENCY_SYMBOL);
+					if (modelPayments.getRowCount() > 0) {
+						lblWithoutVAT.setText(UserMessages.NEW_BILL_WITHOUT_VAT);
+					}
+				}
+				
 				
 			}
 		});
