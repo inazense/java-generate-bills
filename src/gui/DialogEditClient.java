@@ -184,7 +184,7 @@ public class DialogEditClient extends JDialog {
 		contentPane.add(btnAddPhone);
 		
 		// Remove mail
-		btnRemoveEmail = new JButton(UserMessages.NEW_CLIENT_REMOVE_ITEM);
+		btnRemoveEmail = new JButton(UserMessages.REMOVE_ITEM);
 		btnRemoveEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeItemList(listEmails.getSelectedIndex(), listEmails, UserMessages.NEW_CLIENT_REMOVED_EMAIL);
@@ -194,7 +194,7 @@ public class DialogEditClient extends JDialog {
 		contentPane.add(btnRemoveEmail);
 		
 		// Remove phone
-		btnRemovePhone = new JButton(UserMessages.NEW_CLIENT_REMOVE_ITEM);
+		btnRemovePhone = new JButton(UserMessages.REMOVE_ITEM);
 		btnRemovePhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				removeItemList(listPhones.getSelectedIndex(), listPhones, UserMessages.NEW_CLIENT_REMOVED_PHONE);

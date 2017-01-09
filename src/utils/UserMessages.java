@@ -5,7 +5,14 @@ public class UserMessages {
 	// Generic
 	public static final String SAVE_DATA 						= "Guardar";
 	public static final String SEARCH 							= "Buscar";
+	public static final String CURRENCY_SYMBOL 					= "€";
+	public static final String PERCENT 							= "%";
+	public static final String NEW 								= "Nuevo";
+	public static final String REMOVE_ITEM 						= "Borrar seleccionado";
 		
+	// Exceptions
+	public static final String VAT_EXCEPTION 					= "Debes rellenar el campo del IVA";
+	
 	// Bill Exceptions
 	public static final String MANDATORY_BILL_NUMBER 			= "Debes escribir un número de factura";
 	public static final String MORE_THAN_0_PAYMENTS 			= "Necesitas agregar algún trabajo antes de realizar esta tarea";
@@ -18,9 +25,12 @@ public class UserMessages {
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
 	
 	// Payment Exceptions
-	public static final String EMPTY_PAYMENT_CONCEPT 			= "El pago no puede estar vacío"; 
+	public static final String EMPTY_PAYMENT_CONCEPT 			= "El concepto no puede estar vacío"; 
 	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
 	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
+	
+	// NumberFormat Exceptions
+	public static final String IS_NOT_DOUBLE 					= "El importe debe ser un número";
 	
 	// SQLite Exceptions
 	public static final String FAIL_INSERT_CLIENT 				= "Error al guardar el cliente";
@@ -45,6 +55,23 @@ public class UserMessages {
 	public static final String MENU_ITEM_SEARCH_CLIENT 			= "Buscar cliente";
 	public static final String MENU_ITEM_SEE_BILLS	 			= "Ver facturas";
 	
+	// NewBill Frame
+	public static final String NEW_BILL_ADD_PAYMENT 			= "Agregar pago";
+	public static final String NEW_BILL_ADD_VAT 				= "Agregar IVA";
+	public static final String NEW_BILL_AMOUNT 					= "Importe";
+	public static final String NEW_BILL_CLIENT 					= "Cliente:";
+	public static final String NEW_BILL_CONCEPT 				= "Concepto";
+	public static final String NEW_BILL_NUMBER 					= "Factura Nº:";
+	public static final String NEW_BILL_VIEW_CLIENT 			= "Ver ficha";
+	public static final String NEW_BILL_TO_PDF 					= "¡A PDF!";
+	public static final String NEW_BILL_TO_PRINT 				= "Imprimir";
+	public static final String NEW_BILL_TOTAL 					= "Total: ";
+	public static final String NEW_BILL_VAT 					= "IVA";
+	public static final String NEW_BILL_WITHOUT_VAT 			= "IVA no aplicado";
+	public static final String NEW_BILL_FAIL_SELECT_CLIENT 		= "Debes elegir algún cliente antes"; 
+	
+	
+	
 	// NewClient Frame
 	public static final String NEW_CLIENT_SURNAMES 				= "Apellidos:";
 	public static final String NEW_CLIENT_NAME 					= "Nombre:";
@@ -54,7 +81,6 @@ public class UserMessages {
 	public static final String NEW_CLIENT_POSTAL_CODE 			= "Código postal:";
 	public static final String NEW_CLIENT_ADD_PHONE 			= "Agregar teléfono";
 	public static final String NEW_CLIENT_ADD_EMAIL 			= "Agregar correo electrónico";
-	public static final String NEW_CLIENT_REMOVE_ITEM 			= "Borrar seleccionado";
 	public static final String NEW_CLIENT_REMOVED_EMAIL 		= "Correo electrónico eliminado";
 	public static final String NEW_CLIENT_REMOVED_PHONE 		= "Teléfono eliminado";
 	public static final String NEW_CLIENT_ERROR_REMOVE 			= "No hay nada seleccionado para borrar";
