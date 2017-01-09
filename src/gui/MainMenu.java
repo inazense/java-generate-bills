@@ -70,6 +70,12 @@ public class MainMenu extends MyFrame {
 		mnBills.add(mntmNewBill);
 		
 		mntmSearchBill = new JMenuItem(UserMessages.MENU_ITEM_SEARCH_BILL);
+		mntmSearchBill.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				new FrameSearchBills(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEARCH_BILL);
+			}
+		});
 		mnBills.add(mntmSearchBill);
 	}
 	

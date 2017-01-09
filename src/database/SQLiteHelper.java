@@ -41,7 +41,7 @@ public class SQLiteHelper {
 	 * @throws SQLException
 	 */
 	private void dbAction(String sql) throws SQLException {
-		System.out.println(SingletonSQLite.getConnection().createStatement().executeUpdate(sql));
+		SingletonSQLite.getConnection().createStatement().executeUpdate(sql);
 	}
 	
 	/**
