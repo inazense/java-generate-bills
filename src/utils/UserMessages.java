@@ -56,7 +56,6 @@ public class UserMessages {
 	public static final String MENU_ITEM_NEW_CLIENT 			= "Nuevo cliente";
 	public static final String MENU_ITEM_SEARCH_BILL 			= "Buscar factura";
 	public static final String MENU_ITEM_SEARCH_CLIENT 			= "Buscar cliente";
-	public static final String MENU_ITEM_SEE_BILLS	 			= "Ver facturas";
 	
 	// NewBill Frame
 	public static final String NEW_BILL_ADD_PAYMENT 			= "Agregar pago";

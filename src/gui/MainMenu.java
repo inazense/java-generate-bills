@@ -24,7 +24,6 @@ public class MainMenu extends MyFrame {
 	private JMenuItem mntmNewClient;
 	private JMenuItem mntmSearchBill;
 	private JMenuItem mntmSearchClient;
-	private JMenuItem mntmSeeBills;
 	
 	// Constructor
 	public MainMenu(int width, int height, String title) {
@@ -61,14 +60,6 @@ public class MainMenu extends MyFrame {
 	public void initMenuBills() {
 		mnBills = new JMenu(UserMessages.MENU_FACTURAS);
 		menuBar.add(mnBills);
-		
-		mntmSeeBills = new JMenuItem(UserMessages.MENU_ITEM_SEE_BILLS);
-		mntmSeeBills.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new FrameSearchBills(GeneralConfigurations.SUBFRAMES_WIDTH, GeneralConfigurations.SUBFRAMES_HEIGHT, UserMessages.MENU_ITEM_SEE_BILLS);
-			}
-		});
-		mnBills.add(mntmSeeBills);
 		
 		mntmNewBill = new JMenuItem(UserMessages.MENU_ITEM_NEW_BILL);
 		mntmNewBill.addActionListener(new ActionListener() {

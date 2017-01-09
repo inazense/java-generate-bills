@@ -1,6 +1,8 @@
-/gui/
 /SuperClasses/
-/utils/
 /database/
-/test/
+/exceptions/
+/gui/
+/main/
 /participants/
+/test/
+/utils/
