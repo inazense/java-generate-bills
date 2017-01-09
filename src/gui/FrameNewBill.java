@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -23,7 +24,11 @@ import javax.swing.table.DefaultTableModel;
 
 import SuperClasses.MyFrame;
 import database.SQLiteHelper;
+import exceptions.InvalidBillException;
+import exceptions.InvalidEmailException;
 import exceptions.InvalidPaymentException;
+import exceptions.InvalidTelephoneException;
+import participants.Bill;
 import participants.Payment;
 import utils.GeneralConfigurations;
 import utils.UserMessages;
@@ -125,8 +130,17 @@ public class FrameNewBill extends MyFrame {
 		});
 		contentPane.add(this.btnAddPayment);
 		
+		// Save Bill
 		this.btnSave = new JButton(UserMessages.SAVE_DATA);
 		this.btnSave.setBounds(585, 428, 89, 23);
+		this.btnSave.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if (saveBill()) {
+					JOptionPane.showMessageDialog(null, UserMessages.NEW_BILL_SAVED);
+				}
+			}
+		});
 		contentPane.add(this.btnSave);
 		
 		// Remove row
@@ -407,5 +421,38 @@ public class FrameNewBill extends MyFrame {
 	private void clearList() {
 		DefaultListModel<String> listModel = (DefaultListModel<String>) this.listClients.getModel();
 		listModel.removeAllElements();
+	}
+	
+	/**
+	 * Save bill into database, in tables bills and payments
+	 * @return boolean. true if there is not an exception, false if not
+	 */
+	private boolean saveBill() {
+		
+		try {
+			Bill b = new Bill();
+			b.setBillNumber(this.txtBillNumber.getText());
+			b.setVat(Double.parseDouble(this.txtVAT.getText()));
+			b.setPayments(new Vector<Payment>());
+			for (int i = 0; i < tblPayments.getRowCount(); i++) {
+				Payment p = new Payment();
+				p.setPaymentConcept((String)tblPayments.getValueAt(i, 0));
+				p.setAmount((Double)tblPayments.getValueAt(i, 1));
+				b.getPayments().add(p);
+			}
+			b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
+			
+			// TODO Save Bill into SQLite database
+			return true;
+		} 
+		catch (InvalidBillException | InvalidPaymentException | InvalidTelephoneException | InvalidEmailException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return false;
+		}
+		catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+			return false;
+		}
+		
 	}
 }

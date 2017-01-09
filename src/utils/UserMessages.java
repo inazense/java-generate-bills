@@ -68,7 +68,9 @@ public class UserMessages {
 	public static final String NEW_BILL_TOTAL 					= "Total: ";
 	public static final String NEW_BILL_VAT 					= "IVA";
 	public static final String NEW_BILL_WITHOUT_VAT 			= "IVA no aplicado";
-	public static final String NEW_BILL_FAIL_SELECT_CLIENT 		= "Debes elegir algún cliente antes"; 
+	public static final String NEW_BILL_FAIL_SELECT_CLIENT 		= "Debes elegir algún cliente antes";
+	public static final String NEW_BILL_SAVED 					= "Factura guardada correctamente";
+	public static final String NEW_BILL_FAIL_SAVED 				= "Error al guardar la factura";
 	
 	
 	
