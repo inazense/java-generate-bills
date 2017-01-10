@@ -1,4 +1,6 @@
 # java-generate-bills
-Java application to generate bills for reforms
-It be used to practice creating pdf reports and sending mails.
-Database used: SQLite
+Java application to generate bills for a local reform company
+
+Database engine: SQLite.
+Reports generated in PDF with iReports.
+
