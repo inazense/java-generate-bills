@@ -12,15 +12,19 @@ public class UserMessages {
 		
 	// Exceptions
 	public static final String VAT_EXCEPTION 					= "Debes rellenar el campo del IVA";
+	public static final String NUM_DATE_EXCEPTION 				= "El formato de la fecha debe ser dd/mm/yyyy";
 	
 	// Bill Exceptions
 	public static final String MANDATORY_BILL_NUMBER 			= "Debes escribir un número de factura";
 	public static final String MORE_THAN_0_PAYMENTS 			= "Necesitas agregar algún trabajo antes de realizar esta tarea";
+	public static final String INVALID_DATE 					= "Fecha invalida";
 	
-	// Catch new client fields GUI Exceptions
+	// Catch fields GUI Exceptions
 	public static final String MANDATORY_CLIENT_NAME 			= "Debes escribir un nombre";
 	public static final String MANDATORY_CLIENT_SURNAME 		= "Debes escribir un apellido";
 	public static final String MANDATORY_SELECT_A_CLIENT 		= "Debes elegir un cliente al que facturar";
+	public static final String MANDATORY_SELECT_A_DATE 			= "Debes escribir una fecha";
+	public static final String MANDATORY_PAYMENTS 				= "No hay nada que facturar";
 	
 	// Email Exceptions
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
@@ -63,6 +67,7 @@ public class UserMessages {
 	public static final String NEW_BILL_AMOUNT 					= "Importe";
 	public static final String NEW_BILL_CLIENT 					= "Cliente:";
 	public static final String NEW_BILL_CONCEPT 				= "Concepto";
+	public static final String NEW_BILL_DATE 					= "Fecha:";
 	public static final String NEW_BILL_NUMBER 					= "Factura Nº:";
 	public static final String NEW_BILL_VIEW_CLIENT 			= "Ver ficha";
 	public static final String NEW_BILL_TO_PDF 					= "¡A PDF!";

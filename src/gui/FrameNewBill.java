@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Vector;
@@ -11,6 +12,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import SuperClasses.MyFrame;
 import database.SQLiteHelper;
@@ -45,6 +48,8 @@ public class FrameNewBill extends MyFrame {
 	
 	private DefaultTableModel modelPayments;
 	
+	private MaskFormatter mask;
+	
 	private JButton btnAddPayment;
 	private JButton btnAddVAT;
 	private JButton btnDeletePayment;
@@ -55,10 +60,13 @@ public class FrameNewBill extends MyFrame {
 	private JButton btnToPDF;
 	private JButton btnToPrint;
 	
+	private JFormattedTextField txtDate;
+	
 	private JLabel lblAmount;
 	private JLabel lblClient;
 	private JLabel lblConcept;
 	private JLabel lblCurrency;
+	private JLabel lblDate;
 	private JLabel lblBillNumber;
 	private JLabel lblPercent;
 	private JLabel lblTotal;
@@ -284,6 +292,10 @@ public class FrameNewBill extends MyFrame {
 		this.lblWithoutVAT.setForeground(Color.RED);
 		this.lblWithoutVAT.setBounds(288, 386, 98, 14);
 		contentPane.add(this.lblWithoutVAT);
+		
+		this.lblDate = new JLabel(UserMessages.NEW_BILL_DATE);
+		this.lblDate.setBounds(495, 11, 46, 14);
+		contentPane.add(this.lblDate);
 	}
 
 	/**
@@ -367,6 +379,16 @@ public class FrameNewBill extends MyFrame {
 		this.txtBillNumber.setBounds(93, 8, 307, 20);
 		this.txtBillNumber.setColumns(10);
 		contentPane.add(this.txtBillNumber);
+		
+		try {
+			mask = new MaskFormatter("##/##/####");
+			this.txtDate = new JFormattedTextField(mask);
+		} catch (ParseException e) {
+			this.txtDate = new JFormattedTextField();
+		}
+		this.txtDate = new JFormattedTextField(mask);
+		this.txtDate.setBounds(551, 8, 123, 20);
+		contentPane.add(this.txtDate);
 	}
 	
 	/**
@@ -438,6 +460,14 @@ public class FrameNewBill extends MyFrame {
 			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_CLIENT);
 			return false;
 		}
+		else if (txtDate.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_DATE);
+			return false;
+		}
+		else if (tblPayments.getRowCount() < 1) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_PAYMENTS);
+			return false;
+		}
 		else {
 			try {
 				
@@ -445,6 +475,7 @@ public class FrameNewBill extends MyFrame {
 				Bill b = new Bill();
 				b.setBillNumber(this.txtBillNumber.getText());
 				b.setVat(Double.parseDouble(this.txtVAT.getText()));
+				b.setDate(this.txtDate.getText());
 				Vector<Payment> payments = new Vector<Payment>();
 				for (int i = 0; i < tblPayments.getRowCount(); i++) {
 					Payment p = new Payment();

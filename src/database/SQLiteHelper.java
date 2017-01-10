@@ -117,7 +117,7 @@ public class SQLiteHelper {
 	 * @throws Exception 
 	 */
 	public void insertBill(Bill bill) throws InvalidBillException {
-		sql = "INSERT INTO bills(id, client, vat) VALUES ('" + bill.getBillNumber() + "', " + bill.getClient().getClientCode() + ", " + bill.getVat() + ")";
+		sql = "INSERT INTO bills(id, client, vat, date) VALUES ('" + bill.getBillNumber() + "', " + bill.getClient().getClientCode() + ", " + bill.getVat() + ", '" + bill.getDate() + "')";
 		try {
 			dbAction(sql);
 		} catch (SQLException e) {

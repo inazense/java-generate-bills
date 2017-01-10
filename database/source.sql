@@ -27,6 +27,7 @@ CREATE TABLE bills (
 	id TEXT PRIMARY KEY,
 	client INTEGER NOT NULL,
 	vat DOUBLE NOT NULL,
+	date TEXT NOT NULL,
 	FOREIGN KEY(client) REFERENCES clients(id)
 );
 
