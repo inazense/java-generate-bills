@@ -101,6 +101,9 @@ public class UserMessages {
 	public static final String DIALOG_PHONE 					= "Teléfono";
 	public static final String DIALOG_EMAIL 					= "Correo electrónico";
 	
+	// SearchBill Frame
+	public static final String BILL_LIST_INSTRUCTIONS 			= "(Doble clic a la factura del cliente para verlo y editarlo)";
+	
 	// SeachClient Frame
 	public static final String CLIENT_LIST_INSTRUCTIONS 		= "(Doble clic al nombre del cliente para verlo y editarlo)";
 	public static final String CLIENT_LIST 						= "Listado de clientes";
