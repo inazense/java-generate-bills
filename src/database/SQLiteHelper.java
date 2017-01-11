@@ -162,33 +162,39 @@ public class SQLiteHelper {
 	}
 	
 	/**
+	 * 
+	 * @return Returns id and date from table bills and name, surname and locality from table clients
+	 * @throws SQLException Vector of Bill
+	 */
+	public Vector<String[]> showAllBills() throws SQLException {
+		Vector<String[]> bills = new Vector<String[]>();
+		sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE clients.id = bills.client";
+		rs = dbQuery(sql);
+		while (rs.next()) {
+			String[] bill = {rs.getString("id"), rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality"), rs.getString("date")};
+			bills.add(bill);
+		}
+		
+		return bills;
+	}
+	
+	/**
 	 * Returns id and date from table bills and name, surname and locality from table clients
 	 * @param filter name of the field to filter the query
 	 * @param value value of the field to filter the query
 	 * @return Vector of Bill
 	 * @throws SQLException 
 	 */
-	public Vector<String[]> showBills(String filter, String value) throws SQLException {
+	public Vector<String[]> showFilteredBills(String filter, String value) throws SQLException {
 		Vector<String[]> bills = new Vector<String[]>();
 		
-		switch(filter) {
-			case "id":
-			case "date":
-				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE " + filter + " like '%" + value + "%' AND clients.id = bills.client";
-				break;
-			case "client":
-				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE " + filter + " = " + value + " AND clients.id = bills.client";
-			default:
-				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE clients.id = bills.client";
-		}
+		sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE client = 2 AND clients.id = bills.client";
+		// TODO Implement correct SQL sentence
 		
 		rs = dbQuery(sql);
 		while (rs.next()) {
-			String id = rs.getString("id");
-			String client = rs.getString("name") + " " + rs.getString("surname") + " " + rs.getString("locality");
-			String date = rs.getString("date");
-			String[] s = {id, client, date};
-			bills.add(s);
+			String[] bill = {rs.getString("id"), rs.getString("name") + " " + rs.getString("surname") + " - " + rs.getString("locality"), rs.getString("date")};
+			bills.add(bill);
 		}
 		
 		return bills;

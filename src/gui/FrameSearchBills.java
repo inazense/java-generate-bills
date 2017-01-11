@@ -1,6 +1,10 @@
 package gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -8,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -38,6 +43,8 @@ public class FrameSearchBills extends MyFrame {
 	private MaskFormatter mask;
 	
 	private JFormattedTextField txtDate;
+	
+	private JButton btnSearch;
 	
 	private JLabel lblTitle;
 	private JLabel lblBillNumber;
@@ -71,6 +78,7 @@ public class FrameSearchBills extends MyFrame {
 	 */
 	private void init() {
 		setVisible(true);
+		this.initButtons();
 		this.initLabels();
 		this.initLists();
 		this.initSeparators();
@@ -78,6 +86,24 @@ public class FrameSearchBills extends MyFrame {
 		this.initTextFields();
 	}
 	
+	private void initButtons() {
+		this.btnSearch = new JButton(UserMessages.SEARCH);
+		this.btnSearch.setBounds(585, 220, 89, 23);
+		
+		// Search
+		this.btnSearch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createFilter();
+				txtBillNumber.setText("");
+				txtDate.setText("");
+				listClients.setSelectedIndex(-1);
+				listClients.clearSelection();
+			}
+		});
+		contentPane.add(this.btnSearch);
+	}
 	/**
 	 * Initialize labels
 	 */
@@ -100,12 +126,12 @@ public class FrameSearchBills extends MyFrame {
 		contentPane.add(this.lblClient);
 		
 		this.lblListBills = new JLabel(UserMessages.BILL_LIST);
-		this.lblListBills.setBounds(10, 240, 132, 14);
+		this.lblListBills.setBounds(10, 272, 132, 14);
 		contentPane.add(this.lblListBills);
 		
 		this.lblHelp = new JLabel(UserMessages.BILL_LIST_INSTRUCTIONS);
 		this.lblHelp.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		this.lblHelp.setBounds(131, 240, 306, 14);
+		this.lblHelp.setBounds(131, 272, 306, 14);
 		contentPane.add(this.lblHelp);
 	}
 	
@@ -139,7 +165,7 @@ public class FrameSearchBills extends MyFrame {
 	 */
 	private void initSeparators() {
 		this.separator = new JSeparator();
-		this.separator.setBounds(202, 225, 280, 2);
+		this.separator.setBounds(202, 259, 280, 2);
 		contentPane.add(this.separator);
 	}
 	
@@ -148,7 +174,7 @@ public class FrameSearchBills extends MyFrame {
 	 */
 	private void initTables() {
 		this.scrollBill = new JScrollPane();
-		this.scrollBill.setBounds(10, 265, 664, 186);
+		this.scrollBill.setBounds(10, 297, 664, 154);
 		contentPane.add(this.scrollBill);
 		
 		this.modelBills = new DefaultTableModel();
@@ -156,18 +182,40 @@ public class FrameSearchBills extends MyFrame {
 		this.modelBills.addColumn(UserMessages.BILL_CLIENT);
 		this.modelBills.addColumn(UserMessages.BILL_DATE_TABLE);
 		
-		this.tblBills = new JTable(this.modelBills);
+		this.tblBills = new JTable(this.modelBills) {
+			// Cells not editable
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		this.tblBills.getColumnModel().getColumn(0).setPreferredWidth(150);
 		this.tblBills.getColumnModel().getColumn(1).setPreferredWidth(280);
 		this.tblBills.getColumnModel().getColumn(2).setPreferredWidth(60);
 		
+		// Fill table
 		try {
-			this.bills = sHelper.showBills("", "");
+			this.bills = sHelper.showAllBills();
 			this.fillTable();
 		} 
 		catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
 		}
+		
+		// Double click event
+		this.tblBills.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				// TODO Implement Edit bill dialog
+				JOptionPane.showMessageDialog(null, "QUIOOOOOOOOOO");
+				try {
+					bills = sHelper.showAllBills();
+					fillList();
+				}
+				catch(SQLException e) {
+					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+				}
+			}
+		});
 		
 		this.scrollBill.setViewportView(this.tblBills);
 	}
@@ -230,5 +278,62 @@ public class FrameSearchBills extends MyFrame {
 	private void clearTable() {
 		DefaultTableModel dtm = (DefaultTableModel) this.tblBills.getModel();
 		dtm.setRowCount(0);
+	}
+	
+	/**
+	 * Catch values from fields and pass corresponding name of field in database and the value to 
+	 * get properly results into where clausure.
+	 * Then, fill JTable with them
+	 */
+	private void createFilter() {
+		Integer client = listClients.getSelectedIndex();
+		String date = this.txtDate.getText();
+		String bill = this.txtBillNumber.getText();
+		String filter = "";
+		String value = "";
+		int i = 0;
+		
+		if (!String.valueOf(date.toCharArray()[0]).equals(" ")) {
+			filter = "date";
+			value = date;
+			i++;
+		}
+		if (!bill.equals("")) {
+			filter = "id";
+			value = bill;
+			i++;
+		}
+		if (client != -1) {
+			filter = "client";
+			value = String.valueOf(this.clients.get(listClients.getSelectedValue()));
+			i++;
+		}
+		// TODO Implement logic of choice
+		/*
+		switch(i) {
+			case 0:
+				try {
+					this.bills = null;
+					this.bills = sHelper.showFilteredBills("", "");
+					this.fillTable();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+					e.printStackTrace();
+				}
+				break;
+			case 1:
+				try {
+					this.bills = null;
+					this.bills = sHelper.showFilteredBills(filter, value);
+					this.fillTable();
+				}
+				catch(SQLException e) {
+					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS_FILTERS);
+					e.printStackTrace();
+				}
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, UserMessages.MORE_THAN_ONE_FILTER);
+		}*/
 	}
 }
