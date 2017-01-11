@@ -1,14 +1,17 @@
 package gui;
 
 import java.awt.Font;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -25,11 +28,12 @@ public class FrameSearchBills extends MyFrame {
 
 	// Properties
 	private HashMap<String, Integer> clients;
+	private Vector<String[]> bills;
 	
 	private SQLiteHelper sHelper;
 	
 	private DefaultListModel<String> modelClients;
-	private DefaultTableModel modelPayments;
+	private DefaultTableModel modelBills;
 	
 	private MaskFormatter mask;
 	
@@ -56,6 +60,7 @@ public class FrameSearchBills extends MyFrame {
 	// Constructor
 	public FrameSearchBills(int width, int height, String title) {
 		super(width, height, title);
+		this.sHelper = new SQLiteHelper();
 		this.init();
 	}
 	
@@ -116,6 +121,15 @@ public class FrameSearchBills extends MyFrame {
 		
 		this.listClients = new JList<String>();
 		this.listClients.setModel(this.modelClients);
+		this.listClients.setSelectedIndex(-1);
+		
+		// Fill clients list
+		try {
+			this.clients = sHelper.showAllClients();
+			this.fillList();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+		}
 		
 		this.scrollClient.setViewportView(this.listClients);
 	}
@@ -137,15 +151,23 @@ public class FrameSearchBills extends MyFrame {
 		this.scrollBill.setBounds(10, 265, 664, 186);
 		contentPane.add(this.scrollBill);
 		
-		this.modelPayments = new DefaultTableModel();
-		this.modelPayments.addColumn(UserMessages.BILL_NUMBER);
-		this.modelPayments.addColumn(UserMessages.BILL_CLIENT);
-		this.modelPayments.addColumn(UserMessages.BILL_DATE_TABLE);
+		this.modelBills = new DefaultTableModel();
+		this.modelBills.addColumn(UserMessages.BILL_NUMBER);
+		this.modelBills.addColumn(UserMessages.BILL_CLIENT);
+		this.modelBills.addColumn(UserMessages.BILL_DATE_TABLE);
 		
-		this.tblBills = new JTable(this.modelPayments);
+		this.tblBills = new JTable(this.modelBills);
 		this.tblBills.getColumnModel().getColumn(0).setPreferredWidth(150);
 		this.tblBills.getColumnModel().getColumn(1).setPreferredWidth(280);
 		this.tblBills.getColumnModel().getColumn(2).setPreferredWidth(60);
+		
+		try {
+			this.bills = sHelper.showBills("", "");
+			this.fillTable();
+		} 
+		catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+		}
 		
 		this.scrollBill.setViewportView(this.tblBills);
 	}
@@ -172,7 +194,7 @@ public class FrameSearchBills extends MyFrame {
 	}
 	
 	/**
-	 * Fill list with clients of database
+	 * Fill list with clients from database
 	 */
 	private void fillList() {
 		
@@ -185,10 +207,28 @@ public class FrameSearchBills extends MyFrame {
 	}
 	
 	/**
-	 * Remove all elements of the list
+	 * Remove all elements from the list
 	 */
 	private void clearList() {
 		DefaultListModel<String> listModel = (DefaultListModel<String>) this.listClients.getModel();
 		listModel.removeAllElements();
+	}
+	
+	/**
+	 * Fill table with bill from database
+	 */
+	private void fillTable() {
+		this.clearTable();
+		for (String[] i : this.bills) {
+			this.modelBills.addRow(new Object[]{i[0], i[1], i[2]});
+		}
+	}
+	
+	/**
+	 *  Remove all items from the table
+	 */
+	private void clearTable() {
+		DefaultTableModel dtm = (DefaultTableModel) this.tblBills.getModel();
+		dtm.setRowCount(0);
 	}
 }

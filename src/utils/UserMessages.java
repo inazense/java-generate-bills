@@ -46,6 +46,8 @@ public class UserMessages {
 	public static final String FAIL_LOAD_CLIENT_FIELDS 			= "Error al cargar los datos del cliente";
 	public static final String FAIL_SAVE_BILLS 					= "Error al guardar la factura";
 	public static final String FAIL_SAVE_PAYMENTS 				= "Error al guardar los conceptos a cobrar";
+	public static final String FAIL_LOAD_BILLS 					= "Error al cargar el listado de facturas";
+	public static final String FAIL_LOAD_BILLS_FILTERS 			= "Error al cargar el listado de facturas con los filtros";
 	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";

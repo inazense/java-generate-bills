@@ -162,6 +162,39 @@ public class SQLiteHelper {
 	}
 	
 	/**
+	 * Returns id and date from table bills and name, surname and locality from table clients
+	 * @param filter name of the field to filter the query
+	 * @param value value of the field to filter the query
+	 * @return Vector of Bill
+	 * @throws SQLException 
+	 */
+	public Vector<String[]> showBills(String filter, String value) throws SQLException {
+		Vector<String[]> bills = new Vector<String[]>();
+		
+		switch(filter) {
+			case "id":
+			case "date":
+				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE " + filter + " like '%" + value + "%' AND clients.id = bills.client";
+				break;
+			case "client":
+				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE " + filter + " = " + value + " AND clients.id = bills.client";
+			default:
+				sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE clients.id = bills.client";
+		}
+		
+		rs = dbQuery(sql);
+		while (rs.next()) {
+			String id = rs.getString("id");
+			String client = rs.getString("name") + " " + rs.getString("surname") + " " + rs.getString("locality");
+			String date = rs.getString("date");
+			String[] s = {id, client, date};
+			bills.add(s);
+		}
+		
+		return bills;
+	}
+	
+	/**
 	 * Returns name, surname, locality and client code to show in search clients.
 	 * @param name
 	 * @param surname
