@@ -102,7 +102,12 @@ public class UserMessages {
 	public static final String DIALOG_EMAIL 					= "Correo electrónico";
 	
 	// SearchBill Frame
-	public static final String BILL_LIST_INSTRUCTIONS 			= "(Doble clic a la factura del cliente para verlo y editarlo)";
+	public static final String BILL_LIST 						= "Listado de facturas";
+	public static final String BILL_LIST_INSTRUCTIONS 			= "(Doble clic a la factura del cliente para verla y editarla)";
+	public static final String BILL_NUMBER 						= "Nº factura";
+	public static final String BILL_DATE 						= "Fecha de factura";
+	public static final String BILL_DATE_TABLE 					= "Fecha";
+	public static final String BILL_CLIENT 						= "Cliente";
 	
 	// SeachClient Frame
 	public static final String CLIENT_LIST_INSTRUCTIONS 		= "(Doble clic al nombre del cliente para verlo y editarlo)";
