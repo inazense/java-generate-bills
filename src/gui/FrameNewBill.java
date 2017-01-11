@@ -388,6 +388,7 @@ public class FrameNewBill extends MyFrame {
 		}
 		this.txtDate = new JFormattedTextField(mask);
 		this.txtDate.setBounds(551, 8, 123, 20);
+		this.txtDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		contentPane.add(this.txtDate);
 	}
 	

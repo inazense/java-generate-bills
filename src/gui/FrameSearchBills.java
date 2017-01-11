@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -206,7 +207,6 @@ public class FrameSearchBills extends MyFrame {
 		this.tblBills.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				// TODO Implement Edit bill dialog
-				JOptionPane.showMessageDialog(null, "QUIOOOOOOOOOO");
 				try {
 					bills = sHelper.showAllBills();
 					fillList();
@@ -237,6 +237,7 @@ public class FrameSearchBills extends MyFrame {
 		}
 		this.txtDate = new JFormattedTextField(mask);
 		this.txtDate.setBounds(461, 51, 132, 20);
+		this.txtDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		contentPane.add(this.txtDate);
 		this.txtDate.setColumns(10);
 	}
@@ -308,32 +309,29 @@ public class FrameSearchBills extends MyFrame {
 			value = String.valueOf(this.clients.get(listClients.getSelectedValue()));
 			i++;
 		}
-		// TODO Implement logic of choice
-		/*
-		switch(i) {
-			case 0:
-				try {
-					this.bills = null;
-					this.bills = sHelper.showFilteredBills("", "");
-					this.fillTable();
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
-					e.printStackTrace();
-				}
-				break;
-			case 1:
-				try {
-					this.bills = null;
-					this.bills = sHelper.showFilteredBills(filter, value);
-					this.fillTable();
-				}
-				catch(SQLException e) {
-					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS_FILTERS);
-					e.printStackTrace();
-				}
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, UserMessages.MORE_THAN_ONE_FILTER);
-		}*/
+		
+		if (i == 0) {
+			try {
+				this.bills = null;
+				this.bills = sHelper.showAllBills();
+				this.fillTable();
+			}
+			catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+			}
+		}
+		else if (i == 1) {
+			try {
+				this.bills = null;
+				this.bills = sHelper.showFilteredBills(filter, value);
+				this.fillTable();
+			}
+			catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS_FILTERS);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, UserMessages.MORE_THAN_ONE_FILTER);
+		}
 	}
 }

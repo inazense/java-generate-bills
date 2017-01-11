@@ -188,8 +188,15 @@ public class SQLiteHelper {
 	public Vector<String[]> showFilteredBills(String filter, String value) throws SQLException {
 		Vector<String[]> bills = new Vector<String[]>();
 		
-		sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE client = 2 AND clients.id = bills.client";
-		// TODO Implement correct SQL sentence
+		if (filter.equals("id")) {
+			sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE bills.id like '%" + value + "%' AND clients.id = bills.client";
+		}
+		else if (filter.equals("date")) {
+			sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE date = '" + value + "' AND clients.id = bills.client";
+		}
+		else if (filter.equals("client")) {
+			sql = "SELECT bills.id, name, surname, locality, date FROM bills, clients WHERE client = " + value + " AND clients.id = bills.client";
+		}
 		
 		rs = dbQuery(sql);
 		while (rs.next()) {
