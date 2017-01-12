@@ -270,7 +270,7 @@ public class FrameNewBill extends MyFrame {
 		this.lblVAT.setBounds(563, 256, 46, 14);
 		contentPane.add(this.lblVAT);
 		
-		this.lblPercent = new JLabel("%");
+		this.lblPercent = new JLabel(UserMessages.PERCENT);
 		this.lblPercent.setHorizontalAlignment(SwingConstants.RIGHT);
 		this.lblPercent.setBounds(641, 284, 12, 14);
 		contentPane.add(this.lblPercent);

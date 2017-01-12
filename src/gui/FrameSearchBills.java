@@ -206,13 +206,16 @@ public class FrameSearchBills extends MyFrame {
 		// Double click event
 		this.tblBills.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				// TODO Implement Edit bill dialog
-				try {
-					bills = sHelper.showAllBills();
-					fillList();
-				}
-				catch(SQLException e) {
-					JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+				if (evt.getClickCount() == 2) {
+					String billId = (String) modelBills.getValueAt(tblBills.getSelectedRow(), 0);
+					new DialogEditBill(billId);
+					try {
+						bills = sHelper.showAllBills();
+						fillTable();
+					}
+					catch(SQLException e) {
+						JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_BILLS);
+					}
 				}
 			}
 		});

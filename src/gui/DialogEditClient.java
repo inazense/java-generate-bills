@@ -138,7 +138,6 @@ public class DialogEditClient extends JDialog {
 				buttonPane.add(btnCancel);
 			}
 		}
-		// TODO Implements initialization of components
 		this.initButtons();
 		this.initLabels();
 		this.initLists();

@@ -291,6 +291,48 @@ public class SQLiteHelper {
 	}
 	
 	/**
+	 * Get complete bill from bill id
+	 * @param id Integer. Id of bill
+	 * @return Bill object
+	 * @throws SQLException 
+	 * @throws InvalidBillException 
+	 * @throws InvalidEmailException 
+	 * @throws InvalidTelephoneException 
+	 * @throws InvalidPaymentException 
+	 */
+	public Bill getBillFromId(String id) throws SQLException, InvalidBillException, InvalidTelephoneException, InvalidEmailException, InvalidPaymentException {
+		Bill b = new Bill();
+		int clientCode = -1;
+		
+		// Basic info
+		sql = "SELECT * FROM bills WHERE id = '" + id + "'";
+		rs = this.dbQuery(sql);
+		while (rs.next()) {
+			b.setBillNumber(rs.getString("id"));
+			b.setDate(rs.getString("date"));
+			b.setVat(rs.getDouble("vat"));
+			clientCode = rs.getInt("client");
+		}
+		rs = null;
+		
+		// Client
+		b.setClient(this.getClientFromId(clientCode));
+		
+		// Payments
+		Vector<Payment> payments = new Vector<Payment>();
+		
+		sql = "SELECT * FROM payments WHERE bill = '" + id + "'";
+		rs = this.dbQuery(sql);
+		while (rs.next()) {
+			Payment p = new Payment(rs.getString("concept"), rs.getDouble("amount"));
+			payments.add(p);
+		}
+		b.setPayments(payments);
+		
+		return b;
+	}
+	
+	/**
 	 * Delete all rows with a clientCode into database phones or emails
 	 * @param clientCode Client clientCode field
 	 * @param table Only "phones" or "emails"
@@ -301,6 +343,19 @@ public class SQLiteHelper {
 			sql = "DELETE FROM " + table + " WHERE client = " + clientCode;
 			this.dbAction(sql);
 		}
+	}
+	
+	/**
+	 * Delete all rows in payments and bill tables where id = bill
+	 * @param id bills id and payments bill
+	 * @throws SQLException
+	 */
+	public void deleteBillById(String id) throws SQLException {
+		sql = "DELETE FROM payments WHERE bill = '" + id + "'";
+		this.dbAction(sql);
+		
+		sql = "DELETE FROM bills WHERE id = '" + id + "'";
+		this.dbAction(sql);
 	}
 	
 	/**

@@ -9,6 +9,7 @@ public class UserMessages {
 	public static final String PERCENT 							= "%";
 	public static final String NEW 								= "Nuevo";
 	public static final String REMOVE_ITEM 						= "Borrar seleccionado";
+	public static final String CLOSE 							= "Cerrar";
 		
 	// Exceptions
 	public static final String VAT_EXCEPTION 					= "Debes rellenar el campo del IVA";
@@ -48,6 +49,7 @@ public class UserMessages {
 	public static final String FAIL_SAVE_PAYMENTS 				= "Error al guardar los conceptos a cobrar";
 	public static final String FAIL_LOAD_BILLS 					= "Error al cargar el listado de facturas";
 	public static final String FAIL_LOAD_BILLS_FILTERS 			= "Error al cargar el listado de facturas con los filtros";
+	public static final String FAIL_LOAD_ONE_BILL 				= "Error al cargar la factura";
 	
 	// Telephone Exceptions
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
@@ -120,4 +122,11 @@ public class UserMessages {
 	
 	// EditClient Dialog
 	public static final String CLIENT_EDIT 						= "Editar cliente";
+	
+	// EditBill Dialog
+	public static final String BILL_EDIT 						= "Ver factura";
+	public static final String BILL_DELETE 						= "Borrar factura";
+	public static final String BILL_DELETED 					= "Factura borrada";
+	public static final String BILL_FAIL_DELETE 				= "Error al borrar la factura";
+	public static final String BILL_FAIL_PAYMENTS 				= "Error al cargar los pagos";
 }
