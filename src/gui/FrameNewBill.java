@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import com.itextpdf.text.DocumentException;
+
 import SuperClasses.MyFrame;
 import database.SQLiteHelper;
 import exceptions.InvalidBillException;
@@ -34,6 +37,7 @@ import exceptions.InvalidTelephoneException;
 import participants.Bill;
 import participants.Payment;
 import utils.GeneralConfigurations;
+import utils.PdfGenerator;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
@@ -191,10 +195,17 @@ public class FrameNewBill extends MyFrame {
 		
 		this.btnToPDF = new JButton(UserMessages.NEW_BILL_TO_PDF);
 		this.btnToPDF.setBounds(486, 428, 89, 23);
+		this.btnToPDF.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				convertToPDF();
+			}
+		});
 		contentPane.add(this.btnToPDF);
 		
 		this.btnToPrint = new JButton(UserMessages.NEW_BILL_TO_PRINT);
 		this.btnToPrint.setBounds(387, 428, 89, 23);
+		// TODO Logic to print
 		contentPane.add(this.btnToPrint);
 		
 		// New Client
@@ -450,6 +461,51 @@ public class FrameNewBill extends MyFrame {
 	private void clearList() {
 		DefaultListModel<String> listModel = (DefaultListModel<String>) this.listClients.getModel();
 		listModel.removeAllElements();
+	}
+	
+	/**
+	 * Create a PDF in 'facturas' folder with the Bill information
+	 */
+	private void convertToPDF() {
+		if (listClients.getSelectedIndex() == -1) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_CLIENT);
+		}
+		else if (txtDate.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_DATE);
+		}
+		else if (tblPayments.getRowCount() < 1) {
+			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_PAYMENTS);
+		}
+		else {
+			try {
+				Bill b = new Bill();
+				b.setBillNumber(this.txtBillNumber.getText());
+				b.setVat(Double.parseDouble(this.txtVAT.getText()));
+				b.setDate(this.txtDate.getText());
+				Vector<Payment> payments = new Vector<Payment>();
+				for (int i = 0; i < tblPayments.getRowCount(); i++) {
+					Payment p = new Payment();
+					p.setPaymentConcept((String)tblPayments.getValueAt(i, 0));
+					p.setAmount((Double)tblPayments.getValueAt(i, 1));
+					payments.add(p);
+				}
+				b.setPayments(payments);
+				b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
+				
+				new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+				JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
+			}
+			catch(InvalidBillException | InvalidPaymentException | InvalidTelephoneException | InvalidEmailException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_LOAD_CLIENTS);
+			} 
+			catch (IOException | DocumentException e) {
+				JOptionPane.showMessageDialog(null, UserMessages.FAIL_CREATE_PDF);
+			}
+			
+		}
 	}
 	
 	/**

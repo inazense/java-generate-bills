@@ -39,7 +39,6 @@ public class PdfGenerator {
 	public void createBill(Bill b) throws IOException, DocumentException {
 		pdfReader = new PdfReader(this.pathBillGeneric);
 		pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(this.pdfOutputName));
-		//baseFont = BaseFont.createFont( BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 		baseFont = font.getBaseFont();
 		
 		for(int i=1; i<= pdfReader.getNumberOfPages(); i++){

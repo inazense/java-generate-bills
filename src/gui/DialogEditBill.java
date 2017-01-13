@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -19,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.text.DocumentException;
+
 import database.SQLiteHelper;
 import exceptions.InvalidBillException;
 import exceptions.InvalidEmailException;
@@ -27,6 +30,7 @@ import exceptions.InvalidTelephoneException;
 import participants.Bill;
 import participants.Payment;
 import utils.GeneralConfigurations;
+import utils.PdfGenerator;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
@@ -139,7 +143,12 @@ public class DialogEditBill extends JDialog {
 				this.btnPDF.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
-						// TODO Implement action to create PDF
+						try {
+							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+							JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
+						} catch (IOException | DocumentException e1) {
+							JOptionPane.showMessageDialog(null, UserMessages.FAIL_CREATE_PDF);
+						}
 					}
 				});
 				this.btnPDF.setActionCommand("PDF");

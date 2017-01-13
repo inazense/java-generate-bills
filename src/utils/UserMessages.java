@@ -30,13 +30,13 @@ public class UserMessages {
 	// Email Exceptions
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";
 	
+	// NumberFormat Exceptions
+	public static final String IS_NOT_DOUBLE 					= "El importe debe ser un número";
+	
 	// Payment Exceptions
 	public static final String EMPTY_PAYMENT_CONCEPT 			= "El concepto no puede estar vacío"; 
 	public static final String NEGATIVE_AMOUNT 					= "El precio no puede ser negativo";
 	public static final String NO_AMOUNT 						= "Necesitas insertar un precio para este trabajo";
-	
-	// NumberFormat Exceptions
-	public static final String IS_NOT_DOUBLE 					= "El importe debe ser un número";
 	
 	// SQLite Exceptions
 	public static final String FAIL_INSERT_CLIENT 				= "Error al guardar el cliente";
@@ -55,6 +55,10 @@ public class UserMessages {
 	public static final String PHONE_MORE_THAN_15_CHARACTERS 	= "El teléfono tiene más de 15 caracteres";
 	public static final String PHONE_NUMBER_NOT_NUMERIC 		= "El teléfono contiene caracteres no numéricos";
 	public static final String PREFIX_FORMAT_NOT_VALID 			= "El formato del prefijo necesita comenzar con + y solo acepta números después de ese signo";
+	
+	// PdfGenerator
+	public static final String FAIL_CREATE_PDF 					= "Error al generar la factura en PDF";
+	public static final String CREATE_PDF 						= "Factura generada correctamente";
 	
 	// MainMenu Frame
 	public static final String MAIN_TITLE 						= "MP Reformas - Facturas";
