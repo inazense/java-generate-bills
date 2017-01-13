@@ -3,6 +3,8 @@ package test;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.print.PrintException;
+
 import org.junit.*;
 
 import com.itextpdf.text.DocumentException;

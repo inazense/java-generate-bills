@@ -1,8 +1,19 @@
 package utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
+
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -20,6 +31,7 @@ public class PdfGenerator {
 	// Properties
 	private final String pathBillGeneric;
 	private String pdfOutputName;
+	private String pdfOutputFolder;
 	
 	private PdfReader pdfReader;
 	private PdfStamper pdfStamper;
@@ -30,7 +42,8 @@ public class PdfGenerator {
 	
 	// Constructor
 	public PdfGenerator(String pdfName) {
-		this.pdfOutputName = "facturas/" + pdfName;
+		this.pdfOutputFolder = "facturas/";
+		this.pdfOutputName = this.pdfOutputFolder + pdfName;
 		this.pathBillGeneric = "resources/factura.pdf";
 		this.font = FontFactory.getFont("resources/fonts/Roboto-Light.ttf");
 	}
@@ -136,6 +149,12 @@ public class PdfGenerator {
 		return vector;
 	}
 	
+	/**
+	 * Calculates VAT of Payments
+	 * @param amount Total without VAT
+	 * @param vat In percent %
+	 * @return Total price of payments including VAT
+	 */
 	private double calculatesVAT(double amount, double vat) {
 		double vatComplete = (amount / 100) * vat;
 		return amount + vatComplete;
