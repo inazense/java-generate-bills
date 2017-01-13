@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -31,6 +33,7 @@ import participants.Bill;
 import participants.Payment;
 import utils.GeneralConfigurations;
 import utils.PdfGenerator;
+import utils.PdfPrinter;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
@@ -131,7 +134,17 @@ public class DialogEditBill extends JDialog {
 				this.btnPrint.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
-						// TODO Implement method to print
+						FileInputStream fis;
+						try {
+							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+							fis = new FileInputStream("facturas/" + b.getBillNumber() + ".pdf");
+							PdfPrinter printer = new PdfPrinter(fis, b.getBillNumber());
+							printer.print();
+							JOptionPane.showMessageDialog(null, UserMessages.PRINT_PDF);
+						} catch (IOException | PrinterException | DocumentException e1) {
+							JOptionPane.showMessageDialog(null, UserMessages.FAIL_PRINT_PDF);
+						}
+						
 					}
 				});
 				this.btnPrint.setActionCommand("Print");

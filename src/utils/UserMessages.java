@@ -60,6 +60,10 @@ public class UserMessages {
 	public static final String FAIL_CREATE_PDF 					= "Error al generar la factura en PDF";
 	public static final String CREATE_PDF 						= "Factura generada correctamente";
 	
+	// PdfPrinter
+	public static final String FAIL_PRINT_PDF 					= "Error al imprimir la factura";
+	public static final String PRINT_PDF 						= "Factura mandada a imprimir";
+	
 	// MainMenu Frame
 	public static final String MAIN_TITLE 						= "MP Reformas - Facturas";
 	public static final String MENU_FACTURAS 					= "Facturas";

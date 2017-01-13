@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -38,6 +40,7 @@ import participants.Bill;
 import participants.Payment;
 import utils.GeneralConfigurations;
 import utils.PdfGenerator;
+import utils.PdfPrinter;
 import utils.UserMessages;
 
 @SuppressWarnings("serial")
@@ -198,14 +201,19 @@ public class FrameNewBill extends MyFrame {
 		this.btnToPDF.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				convertToPDF();
+				worksWithPDF(1);
 			}
 		});
 		contentPane.add(this.btnToPDF);
 		
 		this.btnToPrint = new JButton(UserMessages.NEW_BILL_TO_PRINT);
 		this.btnToPrint.setBounds(387, 428, 89, 23);
-		// TODO Logic to print
+		this.btnToPrint.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				worksWithPDF(2);
+			}
+		});
 		contentPane.add(this.btnToPrint);
 		
 		// New Client
@@ -464,9 +472,10 @@ public class FrameNewBill extends MyFrame {
 	}
 	
 	/**
-	 * Create a PDF in 'facturas' folder with the Bill information
+	 * Works with new bill
+	 * @param mode If mode = 1 just store bill into facturas folder as PDF, if mode = 2, store and print it
 	 */
-	private void convertToPDF() {
+	private void worksWithPDF(int mode) {
 		if (listClients.getSelectedIndex() == -1) {
 			JOptionPane.showMessageDialog(null, UserMessages.MANDATORY_SELECT_A_CLIENT);
 		}
@@ -492,8 +501,22 @@ public class FrameNewBill extends MyFrame {
 				b.setPayments(payments);
 				b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
 				
-				new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
-				JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
+				if (mode == 1 ){
+					new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+					JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
+				}
+				else if (mode == 2) {
+					FileInputStream fis;
+					try {
+						new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+						fis = new FileInputStream("facturas/" + b.getBillNumber() + ".pdf");
+						PdfPrinter printer = new PdfPrinter(fis, b.getBillNumber());
+						printer.print();
+						JOptionPane.showMessageDialog(null, UserMessages.PRINT_PDF);
+					} catch (IOException | PrinterException | DocumentException e1) {
+						JOptionPane.showMessageDialog(null, UserMessages.FAIL_PRINT_PDF);
+					}
+				}
 			}
 			catch(InvalidBillException | InvalidPaymentException | InvalidTelephoneException | InvalidEmailException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
