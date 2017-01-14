@@ -47,6 +47,7 @@ public class DialogEditClient extends JDialog {
 	private JButton btnOk;
 	private JButton btnCancel;
 	
+	private JLabel lblDni;
 	private JLabel lblLocality;
 	private JLabel lblName;
 	private JLabel lblPostalCode;
@@ -66,6 +67,7 @@ public class DialogEditClient extends JDialog {
 	private JScrollPane scrollEmail;
 	private JScrollPane scrollPhone;
 	
+	private JTextField txtDni;
 	private JTextField txtLocality;
 	private JTextField txtName;
 	private JTextField txtPostalCode;
@@ -152,7 +154,7 @@ public class DialogEditClient extends JDialog {
 	private void initButtons() {
 		// Add mail
 		btnAddEmail = new JButton(UserMessages.NEW_CLIENT_ADD_EMAIL);
-		btnAddEmail.setBounds(389, 147, 199, 23);
+		btnAddEmail.setBounds(389, 193, 199, 23);
 		btnAddEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
@@ -167,7 +169,7 @@ public class DialogEditClient extends JDialog {
 		
 		// Add phone
 		btnAddPhone = new JButton(UserMessages.NEW_CLIENT_ADD_PHONE);
-		btnAddPhone.setBounds(95, 147, 199, 23);
+		btnAddPhone.setBounds(95, 193, 199, 23);
 		btnAddPhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
@@ -189,7 +191,7 @@ public class DialogEditClient extends JDialog {
 				removeItemList(listEmails.getSelectedIndex(), listEmails, UserMessages.NEW_CLIENT_REMOVED_EMAIL);
 			}
 		});
-		btnRemoveEmail.setBounds(401, 334, 174, 23);
+		btnRemoveEmail.setBounds(401, 380, 174, 23);
 		contentPane.add(btnRemoveEmail);
 		
 		// Remove phone
@@ -199,7 +201,7 @@ public class DialogEditClient extends JDialog {
 				removeItemList(listPhones.getSelectedIndex(), listPhones, UserMessages.NEW_CLIENT_REMOVED_PHONE);
 			}
 		});
-		btnRemovePhone.setBounds(107, 334, 174, 23);
+		btnRemovePhone.setBounds(107, 380, 174, 23);
 		contentPane.add(btnRemovePhone);
 	}
 	
@@ -208,23 +210,27 @@ public class DialogEditClient extends JDialog {
 	 */
 	private void initLabels() {
 		lblLocality = new JLabel(UserMessages.NEW_CLIENT_LOCALITY);
-		lblLocality.setBounds(283, 82, 92, 14);
+		lblLocality.setBounds(283, 128, 92, 14);
 		contentPane.add(lblLocality);
 		
 		lblName = new JLabel(UserMessages.NEW_CLIENT_NAME);
 		lblName.setBounds(10, 11, 92, 14);
 		contentPane.add(lblName);
 		
+		lblDni = new JLabel(UserMessages.DNI);
+		lblDni.setBounds(10, 47, 92, 14);
+		contentPane.add(lblDni);
+		
 		lblPostalCode = new JLabel(UserMessages.NEW_CLIENT_POSTAL_CODE);
-		lblPostalCode.setBounds(10, 82, 92, 14);
+		lblPostalCode.setBounds(10, 128, 92, 14);
 		contentPane.add(lblPostalCode);
 		
 		lblProvince = new JLabel(UserMessages.NEW_CLIENT_PROVINCE);
-		lblProvince.setBounds(10, 107, 92, 14);
+		lblProvince.setBounds(10, 153, 92, 14);
 		contentPane.add(lblProvince);
 		
 		lblStreet = new JLabel(UserMessages.NEW_CLIENT_STREET);
-		lblStreet.setBounds(10, 54, 92, 14);
+		lblStreet.setBounds(10, 100, 92, 14);
 		contentPane.add(lblStreet);
 		
 		lblSurnames = new JLabel(UserMessages.NEW_CLIENT_SURNAMES);
@@ -237,7 +243,7 @@ public class DialogEditClient extends JDialog {
 	 */
 	private void initLists() {
 		scrollPhone = new JScrollPane();
-		scrollPhone.setBounds(95, 189, 199, 134);
+		scrollPhone.setBounds(95, 235, 199, 134);
 		contentPane.add(scrollPhone);
 		
 		listPhones = new JList<String>();
@@ -247,7 +253,7 @@ public class DialogEditClient extends JDialog {
 		scrollPhone.setViewportView(listPhones);
 		
 		scrollEmail = new JScrollPane();
-		scrollEmail.setBounds(389, 189, 199, 134);
+		scrollEmail.setBounds(389, 235, 199, 134);
 		contentPane.add(scrollEmail);
 		
 		listEmails = new JList<String>();
@@ -262,11 +268,11 @@ public class DialogEditClient extends JDialog {
 	 */
 	private void initSeparators() {
 		separator1 = new JSeparator();
-		separator1.setBounds(104, 36, 475, 2);
+		separator1.setBounds(104, 82, 475, 2);
 		contentPane.add(separator1);
 		
 		separator2 = new JSeparator();
-		separator2.setBounds(104, 132, 475, 2);
+		separator2.setBounds(104, 178, 475, 2);
 		contentPane.add(separator2);
 	}
 	
@@ -275,7 +281,7 @@ public class DialogEditClient extends JDialog {
 	 */
 	private void initTextFields() {
 		txtLocality = new JTextField();
-		txtLocality.setBounds(346, 79, 262, 20);
+		txtLocality.setBounds(346, 125, 262, 20);
 		txtLocality.setColumns(10);
 		contentPane.add(txtLocality);
 		
@@ -284,18 +290,22 @@ public class DialogEditClient extends JDialog {
 		txtName.setColumns(10);
 		contentPane.add(txtName);
 		
+		txtDni = new JTextField();
+		txtDni.setBounds(104, 44, 169, 20);
+		contentPane.add(txtDni);
+		
 		txtPostalCode = new JTextField();
-		txtPostalCode.setBounds(104, 79, 169, 20);
+		txtPostalCode.setBounds(104, 125, 169, 20);
 		txtPostalCode.setColumns(10);
 		contentPane.add(txtPostalCode);
 		
 		txtProvince = new JTextField();
-		txtProvince.setBounds(104, 104, 169, 20);
+		txtProvince.setBounds(104, 150, 169, 20);
 		txtProvince.setColumns(10);
 		contentPane.add(txtProvince);
 		
 		txtStreet = new JTextField();
-		txtStreet.setBounds(104, 51, 504, 20);
+		txtStreet.setBounds(104, 97, 504, 20);
 		txtStreet.setColumns(10);
 		contentPane.add(txtStreet);
 		
@@ -361,6 +371,7 @@ public class DialogEditClient extends JDialog {
 			c = sHelper.getClientFromId(this.clientCode);
 			this.txtName.setText(c.getName());
 			this.txtSurnames.setText(c.getSurname());
+			this.txtDni.setText(c.getDni());
 			this.txtStreet.setText(c.getAddress().getStreet());
 			this.txtPostalCode.setText(c.getAddress().getPostalCode());
 			this.txtLocality.setText(c.getAddress().getLocality());
@@ -413,7 +424,7 @@ public class DialogEditClient extends JDialog {
 			}
 			
 			// Update client basic and address
-			sHelper.updateClient(c.getClientCode(), txtName.getText(), txtSurnames.getText(), txtStreet.getText(), txtPostalCode.getText(), txtLocality.getText(), txtProvince.getText());
+			sHelper.updateClient(c.getClientCode(), txtDni.getText() ,txtName.getText(), txtSurnames.getText(), txtStreet.getText(), txtPostalCode.getText(), txtLocality.getText(), txtProvince.getText());
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_CLIENT);
 		} catch (InvalidEmailException e) {

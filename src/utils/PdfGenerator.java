@@ -50,7 +50,7 @@ public class PdfGenerator {
 			content.setFontAndSize(baseFont, 10);
 
 			// Client basic info
-			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname());
+			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname() + "               " + b.getClient().getDni());
 			this.printText(260, 770, b.getClient().getAddress().getStreet());
 			this.printText(260, 760, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")");
 			this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString());

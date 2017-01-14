@@ -10,6 +10,7 @@ public class UserMessages {
 	public static final String NEW 								= "Nuevo";
 	public static final String REMOVE_ITEM 						= "Borrar seleccionado";
 	public static final String CLOSE 							= "Cerrar";
+	public static final String DNI 								= "DNI:";
 		
 	// Exceptions
 	public static final String VAT_EXCEPTION 					= "Debes rellenar el campo del IVA";
@@ -26,6 +27,7 @@ public class UserMessages {
 	public static final String MANDATORY_SELECT_A_CLIENT 		= "Debes elegir un cliente al que facturar";
 	public static final String MANDATORY_SELECT_A_DATE 			= "Debes escribir una fecha";
 	public static final String MANDATORY_PAYMENTS 				= "No hay nada que facturar";
+	public static final String MANDATORY_DNI 					= "Debes escribir el DNI o CIF del cliente";
 	
 	// Email Exceptions
 	public static final String EMAIL_NOT_VALID 					= "El correo electrónico tiene un formato NO válido";

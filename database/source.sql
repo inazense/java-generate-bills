@@ -1,13 +1,3 @@
-CREATE TABLE clients (
-	id INTEGER PRIMARY KEY,
-	name TEXT NOT NULL,
-	surname TEXT NOT NULL,
-	street TEXT,
-	postalCode TEXT,
-	locality TEXT,
-	province TEXT
-);
-
 CREATE TABLE emails (
 	client INTEGER NOT NULL,
 	email TEXT NOT NULL,
@@ -23,12 +13,15 @@ CREATE TABLE phones (
 	FOREIGN KEY(client) REFERENCES clients(id)
 );
 
-CREATE TABLE bills (
-	id TEXT PRIMARY KEY,
-	client INTEGER NOT NULL,
-	vat DOUBLE NOT NULL,
-	date TEXT NOT NULL,
-	FOREIGN KEY(client) REFERENCES clients(id)
+CREATE TABLE clients (
+	id INTEGER PRIMARY KEY,
+	dni TEXT NOT NULL,
+	name TEXT NOT NULL,
+	surname TEXT NOT NULL,
+	street TEXT,
+	postalCode TEXT,
+	locality TEXT,
+	province TEXT
 );
 
 CREATE TABLE payments (
@@ -39,4 +32,10 @@ CREATE TABLE payments (
 	FOREIGN KEY(bill) REFERENCES bills(id)
 );
 
-
+CREATE TABLE bills (
+	id TEXT PRIMARY KEY,
+	client INTEGER NOT NULL,
+	vat DOUBLE NOT NULL,
+	date TEXT NOT NULL,
+	FOREIGN KEY(client) REFERENCES clients(id)
+);

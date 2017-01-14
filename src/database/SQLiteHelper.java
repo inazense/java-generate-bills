@@ -80,8 +80,8 @@ public class SQLiteHelper {
 	 * @param province
 	 * @throws SQLException
 	 */
-	public void insertClient(String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
-		sql = "INSERT INTO clients(name, surname, street, postalCode, locality, province) VALUES ('" + name + "', '" + surname + "', '" + street + "', '" + postalCode + "', '" + locality + "', '" + province + "')";
+	public void insertClient(String dni, String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
+		sql = "INSERT INTO clients(dni, name, surname, street, postalCode, locality, province) VALUES ('" + dni + "', '" + name + "', '" + surname + "', '" + street + "', '" + postalCode + "', '" + locality + "', '" + province + "')";
 		dbAction(sql);
 	}
 	
@@ -260,6 +260,7 @@ public class SQLiteHelper {
 			c.setClientCode(id);
 			c.setName(rs.getString("name"));
 			c.setSurname(rs.getString("surname"));
+			c.setDni(rs.getString("dni"));
 			c.setAddress(new Address(rs.getString("street"), rs.getString("postalCode"), rs.getString("locality"), rs.getString("province")));
 		}
 		
@@ -369,8 +370,9 @@ public class SQLiteHelper {
 	 * @param province
 	 * @throws SQLException
 	 */
-	public void updateClient(int clientCode, String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
-		sql = "UPDATE clients SET name = '" + name 
+	public void updateClient(int clientCode, String dni, String name, String surname, String street, String postalCode, String locality, String province) throws SQLException {
+		sql = "UPDATE clients SET dni = '" + dni 
+				+ "', name = '" + name 
 				+ "', surname = '" + surname 
 				+ "', street = '" + street 
 				+ "', postalCode = '" + postalCode 

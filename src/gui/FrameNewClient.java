@@ -39,6 +39,7 @@ public class FrameNewClient extends MyFrame {
 	private JButton btnRemovePhone;
 	private JButton btnSaveData;
 	
+	private JLabel lblDni;
 	private JLabel lblLocality;
 	private JLabel lblName;
 	private JLabel lblPostalCode;
@@ -55,6 +56,7 @@ public class FrameNewClient extends MyFrame {
 	private JScrollPane scrollEmail;
 	private JScrollPane scrollPhone;
 	
+	private JTextField txtDni;
 	private JTextField txtLocality;
 	private JTextField txtName;
 	private JTextField txtPostalCode;
@@ -88,7 +90,7 @@ public class FrameNewClient extends MyFrame {
 	private void initButtons() {
 		// Add mail
 		btnAddEmail = new JButton(UserMessages.NEW_CLIENT_ADD_EMAIL);
-		btnAddEmail.setBounds(389, 147, 199, 23);
+		btnAddEmail.setBounds(389, 193, 199, 23);
 		btnAddEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
@@ -103,7 +105,7 @@ public class FrameNewClient extends MyFrame {
 		
 		// Add phone
 		btnAddPhone = new JButton(UserMessages.NEW_CLIENT_ADD_PHONE);
-		btnAddPhone.setBounds(95, 147, 199, 23);
+		btnAddPhone.setBounds(95, 193, 199, 23);
 		btnAddPhone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
@@ -125,7 +127,7 @@ public class FrameNewClient extends MyFrame {
 				removeItemList(listEmails.getSelectedIndex(), listEmails, UserMessages.NEW_CLIENT_REMOVED_EMAIL);
 			}
 		});
-		btnRemoveEmail.setBounds(401, 334, 174, 23);
+		btnRemoveEmail.setBounds(401, 380, 174, 23);
 		contentPane.add(btnRemoveEmail);
 		
 		// Remove phone
@@ -135,7 +137,7 @@ public class FrameNewClient extends MyFrame {
 				removeItemList(listPhones.getSelectedIndex(), listPhones, UserMessages.NEW_CLIENT_REMOVED_PHONE);
 			}
 		});
-		btnRemovePhone.setBounds(107, 334, 174, 23);
+		btnRemovePhone.setBounds(107, 380, 174, 23);
 		contentPane.add(btnRemovePhone);
 		
 		// Save button
@@ -160,7 +162,7 @@ public class FrameNewClient extends MyFrame {
 	 */
 	private void initLabels() {
 		lblLocality = new JLabel(UserMessages.NEW_CLIENT_LOCALITY);
-		lblLocality.setBounds(283, 82, 92, 14);
+		lblLocality.setBounds(283, 128, 92, 14);
 		contentPane.add(lblLocality);
 		
 		lblName = new JLabel(UserMessages.NEW_CLIENT_NAME);
@@ -168,20 +170,24 @@ public class FrameNewClient extends MyFrame {
 		contentPane.add(lblName);
 		
 		lblPostalCode = new JLabel(UserMessages.NEW_CLIENT_POSTAL_CODE);
-		lblPostalCode.setBounds(10, 82, 92, 14);
+		lblPostalCode.setBounds(10, 128, 92, 14);
 		contentPane.add(lblPostalCode);
 		
 		lblProvince = new JLabel(UserMessages.NEW_CLIENT_PROVINCE);
-		lblProvince.setBounds(10, 107, 92, 14);
+		lblProvince.setBounds(10, 153, 92, 14);
 		contentPane.add(lblProvince);
 		
 		lblStreet = new JLabel(UserMessages.NEW_CLIENT_STREET);
-		lblStreet.setBounds(10, 54, 92, 14);
+		lblStreet.setBounds(10, 100, 92, 14);
 		contentPane.add(lblStreet);
 		
 		lblSurnames = new JLabel(UserMessages.NEW_CLIENT_SURNAMES);
 		lblSurnames.setBounds(283, 11, 92, 14);
 		contentPane.add(lblSurnames);
+		
+		lblDni = new JLabel(UserMessages.DNI);
+		lblDni.setBounds(10, 47, 92, 14);
+		contentPane.add(lblDni);
 	}
 	
 	/**
@@ -189,7 +195,7 @@ public class FrameNewClient extends MyFrame {
 	 */
 	private void initLists() {
 		scrollPhone = new JScrollPane();
-		scrollPhone.setBounds(95, 189, 199, 134);
+		scrollPhone.setBounds(95, 235, 199, 134);
 		contentPane.add(scrollPhone);
 		
 		listPhones = new JList<String>();
@@ -199,7 +205,7 @@ public class FrameNewClient extends MyFrame {
 		scrollPhone.setViewportView(listPhones);
 		
 		scrollEmail = new JScrollPane();
-		scrollEmail.setBounds(389, 189, 199, 134);
+		scrollEmail.setBounds(389, 235, 199, 134);
 		contentPane.add(scrollEmail);
 		
 		listEmails = new JList<String>();
@@ -214,11 +220,11 @@ public class FrameNewClient extends MyFrame {
 	 */
 	private void initSeparators() {
 		separator1 = new JSeparator();
-		separator1.setBounds(104, 36, 475, 2);
+		separator1.setBounds(104, 82, 475, 2);
 		contentPane.add(separator1);
 		
 		separator2 = new JSeparator();
-		separator2.setBounds(104, 132, 475, 2);
+		separator2.setBounds(104, 178, 475, 2);
 		contentPane.add(separator2);
 	}
 	
@@ -227,7 +233,7 @@ public class FrameNewClient extends MyFrame {
 	 */
 	private void initTextFields() {
 		txtLocality = new JTextField();
-		txtLocality.setBounds(346, 79, 262, 20);
+		txtLocality.setBounds(346, 125, 262, 20);
 		txtLocality.setColumns(10);
 		contentPane.add(txtLocality);
 		
@@ -237,17 +243,17 @@ public class FrameNewClient extends MyFrame {
 		contentPane.add(txtName);
 		
 		txtPostalCode = new JTextField();
-		txtPostalCode.setBounds(104, 79, 169, 20);
+		txtPostalCode.setBounds(104, 125, 169, 20);
 		txtPostalCode.setColumns(10);
 		contentPane.add(txtPostalCode);
 		
 		txtProvince = new JTextField();
-		txtProvince.setBounds(104, 104, 169, 20);
+		txtProvince.setBounds(104, 150, 169, 20);
 		txtProvince.setColumns(10);
 		contentPane.add(txtProvince);
 		
 		txtStreet = new JTextField();
-		txtStreet.setBounds(104, 51, 504, 20);
+		txtStreet.setBounds(104, 97, 504, 20);
 		txtStreet.setColumns(10);
 		contentPane.add(txtStreet);
 		
@@ -255,6 +261,11 @@ public class FrameNewClient extends MyFrame {
 		txtSurnames.setBounds(346, 8, 262, 20);
 		txtSurnames.setColumns(10);
 		contentPane.add(txtSurnames);
+		
+		txtDni = new JTextField();
+		txtDni.setBounds(104, 42, 169, 20);
+		txtDni.setColumns(10);
+		contentPane.add(txtDni);
 	}
 	
 	/**
@@ -283,6 +294,9 @@ public class FrameNewClient extends MyFrame {
 	 * @throws InvalidNeodatisException 
 	 */
 	private void saveClient() throws InvalidCatchNewClientFieldsException, InvalidTelephoneException, InvalidEmailException {
+		if (txtDni.getText().equals("")) {
+			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_DNI);
+		}
 		if (txtName.getText().equals("")) {
 			throw new InvalidCatchNewClientFieldsException(UserMessages.MANDATORY_CLIENT_NAME);
 		}
@@ -299,6 +313,7 @@ public class FrameNewClient extends MyFrame {
 			
 			// Client
 			Client cl = new Client();
+			cl.setDni(txtDni.getText());
 			cl.setName(txtName.getText());
 			cl.setSurname(txtSurnames.getText());
 			cl.setAddress(ad);
@@ -362,6 +377,7 @@ public class FrameNewClient extends MyFrame {
 		// INSERT CLIENT
 		String name = cl.getName();
 		String surname = cl.getSurname();
+		String dni = cl.getDni();
 		String street;
 		String postalCode;
 		String locality;
@@ -379,7 +395,7 @@ public class FrameNewClient extends MyFrame {
 			province = cl.getAddress().getProvince();
 		}
 		try {
-			sHelper.insertClient(name, surname, street, postalCode, locality, province);
+			sHelper.insertClient(dni, name, surname, street, postalCode, locality, province);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, UserMessages.FAIL_INSERT_CLIENT);
 		}

@@ -35,6 +35,7 @@ public class FrameSearchClients extends MyFrame {
 	
 	private JList<String> listClients;
 	
+	private JLabel lblDni;
 	private JLabel lblEmail;
 	private JLabel lblInstructions;
 	private JLabel lblList;
@@ -49,6 +50,7 @@ public class FrameSearchClients extends MyFrame {
 	
 	private JScrollPane scrollPane;
 	
+	private JTextField txtDni;
 	private JTextField txtEmail;
 	private JTextField txtLocality;
 	private JTextField txtName;
@@ -119,6 +121,10 @@ public class FrameSearchClients extends MyFrame {
 		lblPhone = new JLabel(UserMessages.CLIENT_PHONE);
 		lblPhone.setBounds(16, 111, 67, 14);
 		contentPane.add(lblPhone);
+		
+		lblDni = new JLabel(UserMessages.DNI);
+		lblDni.setBounds(16, 146, 67, 14);
+		contentPane.add(lblDni);
 		
 		lblProvince = new JLabel(UserMessages.NEW_CLIENT_PROVINCE);
 		lblProvince.setBounds(313, 76, 67, 14);
@@ -209,6 +215,12 @@ public class FrameSearchClients extends MyFrame {
 		txtPhone.setBounds(99, 108, 198, 20);
 		contentPane.add(txtPhone);
 		
+		txtDni = new JTextField();
+		txtDni.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtDni.setColumns(10);
+		txtDni.setBounds(99, 143, 198, 20);
+		contentPane.add(txtDni);
+		
 		txtProvince = new JTextField();
 		txtProvince.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtProvince.setColumns(10);
@@ -249,8 +261,8 @@ public class FrameSearchClients extends MyFrame {
 	 * Then, fill JList with them
 	 */
 	private void createFilter() {
-		String[] filters 	= new String[6];
-		String[] values 	= new String[6];
+		String[] filters 	= new String[7];
+		String[] values 	= new String[7];
 		String filter 	= "";
 		String value 	= "";
 		int filtersWrited = 0;
@@ -261,6 +273,7 @@ public class FrameSearchClients extends MyFrame {
 		values[3] = txtProvince.getText();
 		values[4] = txtPhone.getText();
 		values[5] = txtEmail.getText();
+		values[6] = txtDni.getText();
 		
 		filters[0] = "name";
 		filters[1] = "surname";
@@ -268,6 +281,7 @@ public class FrameSearchClients extends MyFrame {
 		filters[3] = "province";
 		filters[4] = "number";
 		filters[5] = "email";
+		filters[6] = "dni";
 		
 		for (int i = 0; i < filters.length; i++) {
 			

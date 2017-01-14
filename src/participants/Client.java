@@ -10,6 +10,7 @@ import java.util.Vector;
 public class Client {
 
 	// Properties
+	private String dni;
 	private String name;
 	private String surname;
 	private int clientCode;
@@ -23,7 +24,8 @@ public class Client {
 		emails = new Vector<Email>();
 	}
 	
-	public Client(String name, String surname, int clientCode, Address address, Vector<Telephone> phones, Vector<Email> emails) {
+	public Client(String dni, String name, String surname, int clientCode, Address address, Vector<Telephone> phones, Vector<Email> emails) {
+		this.dni = dni;
 		this.name = name;
 		this.surname = surname;
 		this.clientCode = clientCode;
@@ -89,6 +91,14 @@ public class Client {
 	}
 
 	// Getters and setters
+	public String getDni() {
+		return this.dni;
+	}
+	
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	
 	public String getName() {
 		return name;
 	}
