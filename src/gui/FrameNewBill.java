@@ -362,7 +362,12 @@ public class FrameNewBill extends MyFrame {
 		this.modelPayments.addColumn(UserMessages.NEW_BILL_CONCEPT);
 		this.modelPayments.addColumn(UserMessages.NEW_BILL_AMOUNT);
 		
-		this.tblPayments = new JTable(this.modelPayments);
+		this.tblPayments = new JTable(this.modelPayments) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		this.tblPayments.getColumnModel().getColumn(0).setPreferredWidth(266);
 		this.tblPayments.getColumnModel().getColumn(1).setPreferredWidth(34);
 		this.tblPayments.getColumnModel().getColumn(0).setResizable(false);

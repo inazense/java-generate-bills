@@ -53,8 +53,12 @@ public class PdfGenerator {
 			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname() + "               " + b.getClient().getDni());
 			this.printText(260, 770, b.getClient().getAddress().getStreet());
 			this.printText(260, 760, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")");
-			this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString());
-			this.printText(260, 730, b.getClient().getEmails().elementAt(0).getEmail());
+			if (b.getClient().getPhones().size() > 0) {
+				this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString());
+			}
+			if (b.getClient().getEmails().size() > 0) {
+				this.printText(260, 730, b.getClient().getEmails().elementAt(0).getEmail());
+			}
 			
 			// Bill basic info
 			this.printText(138, 633.4f, b.getBillNumber());
