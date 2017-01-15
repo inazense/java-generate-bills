@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.BaseFont;
@@ -29,6 +30,8 @@ public class PdfGenerator {
 	
 	private Font font;
 	
+	String[] alignments = {"left", "right"};
+	
 	// Constructor
 	public PdfGenerator(String pdfName) {
 		this.pdfOutputFolder = "facturas/";
@@ -50,20 +53,20 @@ public class PdfGenerator {
 			content.setFontAndSize(baseFont, 10);
 
 			// Client basic info
-			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname() + "               " + b.getClient().getDni());
-			this.printText(260, 770, b.getClient().getAddress().getStreet());
-			this.printText(260, 760, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")");
+			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname() + "                          " + b.getClient().getDni(), alignments[0]);
+			this.printText(260, 770, b.getClient().getAddress().getStreet(), alignments[0]);
+			this.printText(260, 760, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")", alignments[0]);
 			if (b.getClient().getPhones().size() > 0) {
-				this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString());
+				this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString(), alignments[0]);
 			}
 			if (b.getClient().getEmails().size() > 0) {
-				this.printText(260, 730, b.getClient().getEmails().elementAt(0).getEmail());
+				this.printText(260, 730, b.getClient().getEmails().elementAt(0).getEmail(), alignments[0]);
 			}
 			
 			// Bill basic info
-			this.printText(138, 633.4f, b.getBillNumber());
-			this.printText(250, 633.4f, b.getDate());
-			this.printText(420, 633.4f, String.valueOf(b.getClient().getClientCode()));
+			this.printText(176, 633.4f, b.getBillNumber(), alignments[1]);
+			this.printText(250, 633.4f, b.getDate(), alignments[0]);
+			this.printText(490, 633.4f, String.valueOf(b.getClient().getClientCode()), alignments[0]);
 			
 			// Payments
 			float horizontalPos = 70;
@@ -77,19 +80,19 @@ public class PdfGenerator {
 					v = this.splitArray(p.getPaymentConcept(), 66);
 					for (int x = 0; x < v.size(); x++) {
 						if (x + 1 == v.size()) {
-							this.printText(horizontalPos, verticalPos, v.elementAt(x));
-							this.printText(447, verticalPos, String.valueOf(p.getAmount()) + UserMessages.CURRENCY_SYMBOL);
+							this.printText(horizontalPos, verticalPos, v.elementAt(x), alignments[0]);
+							this.printText(520, verticalPos, String.valueOf(p.getAmount()) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 							verticalPos -= 10;
 						}
 						else {
-							this.printText(horizontalPos, verticalPos, v.elementAt(x));
+							this.printText(horizontalPos, verticalPos, v.elementAt(x), alignments[0]);
 							verticalPos -= 10;
 						}
 					}
 				}
 				else {
-					this.printText(horizontalPos, verticalPos, p.getPaymentConcept());
-					this.printText(447, verticalPos, String.valueOf(p.getAmount()) + UserMessages.CURRENCY_SYMBOL);
+					this.printText(horizontalPos, verticalPos, p.getPaymentConcept(), alignments[0]);
+					this.printText(520, verticalPos, String.valueOf(p.getAmount()) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 					verticalPos -= 10;
 				}
 				
@@ -97,15 +100,15 @@ public class PdfGenerator {
 			}
 			
 			// Separator
-			this.printText(60, 215, "______________________________________________________________________________         __________________________");
+			this.printText(60, 215, "______________________________________________________________________________         __________________________", alignments[0]);
 			
 			// VAT
-			this.printText(376, 195, UserMessages.NEW_BILL_VAT + ":");
-			this.printText(447, 195, String.valueOf(b.getVat()) + UserMessages.PERCENT);
+			this.printText(376, 195, UserMessages.NEW_BILL_VAT + ": " + String.valueOf(b.getVat()) + UserMessages.PERCENT, alignments[1]);
+			this.printText(520, 195, String.format("%.2f", this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 			
 			// Total
-			this.printText(370, 175, UserMessages.NEW_BILL_TOTAL);
-			this.printText(447, 175, String.format("%.2f", this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL);
+			this.printText(376, 175, UserMessages.NEW_BILL_TOTAL, alignments[1]);
+			this.printText(520, 175, String.format("%.2f", total + this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 			
 			content.endText();
 		}
@@ -119,9 +122,14 @@ public class PdfGenerator {
 	 * @param vertical Vertical position in PDF
 	 * @param text Text to print
 	 */
-	private void printText(float horizontal, float vertical, String text) {
-		content.setTextMatrix(horizontal, vertical);
-		content.showText(text);
+	private void printText(float horizontal, float vertical, String text, String alignment) {
+		if (alignment.equals(alignments[0])) {
+			content.showTextAligned(Element.ALIGN_LEFT, text, horizontal, vertical, 0);
+		}
+		else if (alignment.equals(alignments[1])) {
+			content.showTextAligned(Element.ALIGN_RIGHT, text, horizontal, vertical, 0);
+		}
+		
 	}
 	
 	/**
@@ -149,7 +157,6 @@ public class PdfGenerator {
 	 * @return Total price of payments including VAT
 	 */
 	private double calculatesVAT(double amount, double vat) {
-		double vatComplete = (amount / 100) * vat;
-		return amount + vatComplete;
+		return (amount / 100) * vat;
 	}
 }
