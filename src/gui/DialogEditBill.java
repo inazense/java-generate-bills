@@ -136,11 +136,12 @@ public class DialogEditBill extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						FileInputStream fis;
 						try {
-							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
-							fis = new FileInputStream("facturas/" + b.getBillNumber() + ".pdf");
+							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b, 1);
+							fis = new FileInputStream("temp/" + b.getBillNumber() + ".pdf");
 							PdfPrinter printer = new PdfPrinter(fis, b.getBillNumber());
 							printer.print();
 							JOptionPane.showMessageDialog(null, UserMessages.PRINT_PDF);
+							
 						} catch (IOException | PrinterException | DocumentException e1) {
 							JOptionPane.showMessageDialog(null, UserMessages.FAIL_PRINT_PDF);
 						}
@@ -157,7 +158,7 @@ public class DialogEditBill extends JDialog {
 					
 					public void actionPerformed(ActionEvent e) {
 						try {
-							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+							new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b, 0);
 							JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
 						} catch (IOException | DocumentException e1) {
 							JOptionPane.showMessageDialog(null, UserMessages.FAIL_CREATE_PDF);

@@ -20,8 +20,10 @@ public class PdfGenerator {
 
 	// Properties
 	private final String pathBillGeneric;
+	private final String pathBillPrinter;
 	private String pdfOutputName;
 	private String pdfOutputFolder;
+	private String pdfOutputNamePrinter;
 	
 	private PdfReader pdfReader;
 	private PdfStamper pdfStamper;
@@ -34,16 +36,29 @@ public class PdfGenerator {
 	
 	// Constructor
 	public PdfGenerator(String pdfName) {
-		this.pdfOutputFolder = "facturas/";
-		this.pdfOutputName = this.pdfOutputFolder + pdfName;
-		this.pathBillGeneric = "resources/factura.pdf";
-		this.font = FontFactory.getFont("resources/fonts/Roboto-Light.ttf");
+		this.pdfOutputFolder 		= "facturas/";
+		this.pdfOutputNamePrinter 	= "temp/" + pdfName;
+		this.pdfOutputName 			= this.pdfOutputFolder + pdfName;
+		this.pathBillGeneric 		= "resources/factura.pdf";
+		this.pathBillPrinter 		= "resources/facturaBlank.pdf";
+		this.font 					= FontFactory.getFont("resources/fonts/Roboto-Light.ttf");
 	}
 	
 	// Methods
-	public void createBill(Bill b) throws IOException, DocumentException {
-		pdfReader = new PdfReader(this.pathBillGeneric);
-		pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(this.pdfOutputName));
+	public void createBill(Bill b, int mode) throws IOException, DocumentException {
+		
+		// PDF
+		if (mode == 0) {
+			pdfReader = new PdfReader(this.pathBillGeneric);
+			pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(this.pdfOutputName));
+		}
+		
+		// Printer
+		else {
+			pdfReader = new PdfReader(this.pathBillPrinter);
+			pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(this.pdfOutputNamePrinter));
+		}
+		
 		baseFont = font.getBaseFont();
 		
 		for(int i=1; i<= pdfReader.getNumberOfPages(); i++){

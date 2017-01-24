@@ -507,14 +507,14 @@ public class FrameNewBill extends MyFrame {
 				b.setClient(sHelper.getClientFromId(clients.get(listClients.getSelectedValue())));
 				
 				if (mode == 1 ){
-					new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
+					new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b, 0);
 					JOptionPane.showMessageDialog(null, UserMessages.CREATE_PDF);
 				}
 				else if (mode == 2) {
 					FileInputStream fis;
 					try {
-						new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b);
-						fis = new FileInputStream("facturas/" + b.getBillNumber() + ".pdf");
+						new PdfGenerator(b.getBillNumber() + ".pdf").createBill(b, 1);
+						fis = new FileInputStream("temp/" + b.getBillNumber() + ".pdf");
 						PdfPrinter printer = new PdfPrinter(fis, b.getBillNumber());
 						printer.print();
 						JOptionPane.showMessageDialog(null, UserMessages.PRINT_PDF);
