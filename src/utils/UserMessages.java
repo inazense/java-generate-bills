@@ -11,6 +11,7 @@ public class UserMessages {
 	public static final String REMOVE_ITEM 						= "Borrar seleccionado";
 	public static final String CLOSE 							= "Cerrar";
 	public static final String DNI 								= "DNI:";
+	public static final String TOTAL_WITHOUT_VAT 				= "Suma";
 		
 	// Exceptions
 	public static final String VAT_EXCEPTION 					= "Debes rellenar el campo del IVA";

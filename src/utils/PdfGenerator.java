@@ -68,31 +68,31 @@ public class PdfGenerator {
 			content.setFontAndSize(baseFont, 10);
 
 			// Client basic info
-			this.printText(260, 780, b.getClient().getName() + " " + b.getClient().getSurname() + "                          " + b.getClient().getDni(), alignments[0]);
-			this.printText(260, 770, b.getClient().getAddress().getStreet(), alignments[0]);
-			this.printText(260, 760, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")", alignments[0]);
+			this.printText(30, 805, b.getClient().getName() + " " + b.getClient().getSurname(), alignments[0]);
+			this.printText(30, 795, b.getClient().getDni(), alignments[0]);
+			this.printText(30, 785, b.getClient().getAddress().getStreet(), alignments[0]);
+			this.printText(30, 775, b.getClient().getAddress().getPostalCode() + ", " + b.getClient().getAddress().getLocality() + " (" + b.getClient().getAddress().getProvince() + ")", alignments[0]);
 			if (b.getClient().getPhones().size() > 0) {
-				this.printText(260, 740, b.getClient().getPhones().elementAt(0).toString(), alignments[0]);
+				this.printText(30, 765, b.getClient().getPhones().elementAt(0).toString(), alignments[0]);
 			}
 			if (b.getClient().getEmails().size() > 0) {
-				this.printText(260, 730, b.getClient().getEmails().elementAt(0).getEmail(), alignments[0]);
+				this.printText(30, 755, b.getClient().getEmails().elementAt(0).getEmail(), alignments[0]);
 			}
 			
 			// Bill basic info
-			this.printText(176, 633.4f, b.getBillNumber(), alignments[1]);
-			this.printText(250, 633.4f, b.getDate(), alignments[0]);
-			this.printText(490, 633.4f, String.valueOf(b.getClient().getClientCode()), alignments[0]);
+			this.printText(130, 698, b.getBillNumber(), alignments[0]);
+			this.printText(320, 698, b.getDate(), alignments[0]);
 			
 			// Payments
-			float horizontalPos = 70;
-			float verticalPos = 570;
+			float horizontalPos = 50;
+			float verticalPos = 615;
 			double total = 0;
 			
 			for (Payment p : b.getPayments()) {
 				total += p.getAmount();
-				if (p.getPaymentConcept().length() > 66) {
+				if (p.getPaymentConcept().length() > 74) {
 					Vector<String> v = new Vector<String>();
-					v = this.splitArray(p.getPaymentConcept(), 66);
+					v = this.splitArray(p.getPaymentConcept(), 74);
 					for (int x = 0; x < v.size(); x++) {
 						if (x + 1 == v.size()) {
 							this.printText(horizontalPos, verticalPos, v.elementAt(x), alignments[0]);
@@ -114,16 +114,19 @@ public class PdfGenerator {
 				verticalPos -= 10;
 			}
 			
+			this.printText(400, 165, UserMessages.TOTAL_WITHOUT_VAT, alignments[1]);
+			this.printText(510, 165, String.format("%.2f", total) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
+			
 			// Separator
-			this.printText(60, 215, "______________________________________________________________________________         __________________________", alignments[0]);
+			this.printText(65, 145, "______________________________________________________________________________         __________________________", alignments[0]);
 			
 			// VAT
-			this.printText(376, 195, UserMessages.NEW_BILL_VAT + ": " + String.valueOf(b.getVat()) + UserMessages.PERCENT, alignments[1]);
-			this.printText(520, 195, String.format("%.2f", this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
+			this.printText(400, 125, UserMessages.NEW_BILL_VAT + ": " + String.valueOf(b.getVat()) + UserMessages.PERCENT, alignments[1]);
+			this.printText(510, 125, String.format("%.2f", this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 			
 			// Total
-			this.printText(376, 175, UserMessages.NEW_BILL_TOTAL, alignments[1]);
-			this.printText(520, 175, String.format("%.2f", total + this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
+			this.printText(400, 105, UserMessages.NEW_BILL_TOTAL, alignments[1]);
+			this.printText(510, 105, String.format("%.2f", total + this.calculatesVAT(total, b.getVat())) + UserMessages.CURRENCY_SYMBOL, alignments[1]);
 			
 			content.endText();
 		}
